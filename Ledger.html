@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#050F16">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ledger">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAABi0lEQVR42u3csQ2AIABEURprO3sWoHMLt7B0OddgGzeABWxIxATykj/B5dUXlnWTXgsmEByCQ3AIDsEhOASH4BAcgkOCQ3AIDsEhOASH4BAcgkNwSHAIDsEhOASH4BAcgkNwCA4JDsEhOASH4BAcgkNwCA7BITgkOASH4BAcgkNwCA7BITgEhwSH4BAcgkNwCA7BITgEh+CQ4BAcgkNwCA7BITgEh+AQHIJD6ojjyM8QlTs2d+0flM4/gwMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw44RsEhzz6CQ4JDcAgOwSE4BIfgEByCQ3AIDgkOwSE4BIfgEByCQ3AIDsEhwSE4BIfgEByCQ3AIDsEhOCQ4BIfgEByCQ3AIDsEhOASH4JDgEByCQ3AIDsEhOASH4BAcEhyCQ3AIDsEhOASH4BAcgkOCQ3AIDsEhOASH4BAcmqkKei/FgATYFgIAAAAASUVORK5CYII=">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAABi0lEQVR42u3csQ2AIABEURprO3sWoHMLt7B0OddgGzeABWxIxATykj/B5dUXlnWTXgsmEByCQ3AIDsEhOASH4BAcgkOCQ3AIDsEhOASH4BAcgkNwSHAIDsEhOASH4BAcgkNwCA4JDsEhOASH4BAcgkNwCA7BITgkOASH4BAcgkNwCA7BITgEhwSH4BAcgkNwCA7BITgEh+CQ4BAcgkNwCA7BITgEh+AQHIJD6ojjyM8QlTs2d+0flM4/gwMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw44RsEhzz6CQ4JDcAgOwSE4BIfgEByCQ3AIDgkOwSE4BIfgEByCQ3AIDsEhwSE4BIfgEByCQ3AIDsEhOCQ4BIfgEByCQ3AIDsEhOASH4JDgEByCQ3AIDsEhOASH4BAcEhyCQ3AIDsEhOASH4BAcgkOCQ3AIDsEhOASH4BAcmqkKei/FgATYFgIAAAAASUVORK5CYII=">
+<title>Ledger</title>
+<style>
+:root{
+  --void:#050F16; --deep:#0A1A24; --panel:#0F2431; --panel2:#16323F; --edge:#1E4152;
+  --hot:#FF2E63; --ember:#FF6B35; --warm:#FFB021; --cool:#00D9A5; --ice:#4CC9F0;
+  --txt:#EAF6FA; --dim:#8FB0BE; --faint:#5A7D8C;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--void)}
+body{
+  background:
+    radial-gradient(120% 60% at 50% 0%, #0C2432 0%, transparent 60%),
+    radial-gradient(90% 50% at 100% 100%, #10202B 0%, transparent 55%),
+    var(--void);
+  background-attachment:fixed;
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:15px;line-height:1.5;min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:ui-monospace,'SF Mono','Roboto Mono',Menlo,monospace;font-variant-numeric:tabular-nums}
+.lab{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+#app{max-width:540px;margin:0 auto;padding:0 0 92px}
+
+/* ── HERO ─────────────────────────────────────── */
+header{padding:calc(14px + env(safe-area-inset-top)) 20px 16px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.wordmark{font-size:15px;font-weight:800;letter-spacing:.34em;text-transform:uppercase;color:var(--txt)}
+.tierpill{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;padding:5px 11px;border-radius:100px;
+  background:rgba(0,217,165,.10);border:1px solid rgba(0,217,165,.4);color:var(--cool)}
+.heroval{font-size:clamp(46px,15vw,62px);font-weight:800;letter-spacing:-.035em;line-height:.95;
+  font-family:ui-monospace,'SF Mono',Menlo,monospace;font-variant-numeric:tabular-nums}
+.herosub{font-size:13px;color:var(--dim);margin-top:8px;line-height:1.5}
+.herosub b{color:var(--txt);font-weight:700}
+
+/* ── SPECTRUM (signature) ─────────────────────── */
+.spectrum{margin-top:20px}
+.specbar{display:flex;height:34px;border-radius:8px;overflow:hidden;background:var(--deep);
+  box-shadow:0 2px 20px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.05)}
+.specbar span{transition:flex-grow .7s cubic-bezier(.4,0,.2,1);position:relative;min-width:2px}
+.specbar span.cleared{background:linear-gradient(90deg,var(--ice),var(--cool))}
+.speckey{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.k{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--dim);
+  font-family:ui-monospace,Menlo,monospace}
+.k i{width:8px;height:8px;border-radius:2px;display:block}
+
+/* ── PAGES ────────────────────────────────────── */
+main{padding:4px 20px 0}
+.page{display:none;animation:rise .32s cubic-bezier(.2,.8,.3,1)}
+.page.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.sec{display:flex;align-items:center;gap:10px;margin:26px 0 12px}
+.sec .lab{white-space:nowrap}
+.sec:after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--edge),transparent)}
+
+/* ── CARDS ────────────────────────────────────── */
+.card{background:linear-gradient(160deg,var(--panel),var(--deep));border:1px solid var(--edge);
+  border-radius:14px;padding:16px;margin-bottom:12px}
+.card.glow{box-shadow:0 0 0 1px rgba(0,217,165,.25), 0 8px 30px rgba(0,217,165,.07)}
+.stat{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;
+  border-bottom:1px solid rgba(30,65,82,.5)}
+.stat:last-child{border-bottom:none;padding-bottom:0}
+.stat:first-child{padding-top:0}
+.stat .n{font-size:12.5px;color:var(--dim)}
+.stat .v{font-size:17px;font-weight:700;font-family:ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.v.cool{color:var(--cool)} .v.hot{color:var(--hot)} .v.ice{color:var(--ice)} .v.warm{color:var(--warm)}
+
+/* ── DEBT ROWS ────────────────────────────────── */
+.debt{background:var(--deep);border:1px solid var(--edge);border-left:4px solid var(--warm);
+  border-radius:12px;padding:14px 15px;margin-bottom:9px;transition:.3s}
+.debt .r1{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.debt .nm{font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.debt .bal{font-size:19px;font-weight:800;font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.debt .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.tag{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.06em;padding:3px 8px;
+  border-radius:5px;background:rgba(255,255,255,.05);color:var(--dim);border:1px solid rgba(255,255,255,.07)}
+.tag.hot{color:var(--hot);border-color:rgba(255,46,99,.35);background:rgba(255,46,99,.09)}
+.tag.ice{color:var(--ice);border-color:rgba(76,201,240,.32);background:rgba(76,201,240,.08)}
+.tag.cool{color:var(--cool);border-color:rgba(0,217,165,.35);background:rgba(0,217,165,.09)}
+.debt .note{font-size:11.5px;color:var(--faint);margin-top:8px;line-height:1.5}
+.track{height:6px;background:rgba(0,0,0,.35);border-radius:100px;margin-top:11px;overflow:hidden}
+.track i{display:block;height:100%;border-radius:100px;background:linear-gradient(90deg,var(--ice),var(--cool));
+  transition:width .7s cubic-bezier(.4,0,.2,1)}
+.debt.done{border-left-color:var(--cool);opacity:.5}
+.debt.done .nm{text-decoration:line-through;text-decoration-color:var(--cool);text-decoration-thickness:2px}
+.debt.done .bal{color:var(--cool)}
+.debt.next{border-left-color:var(--cool);box-shadow:0 0 0 1px rgba(0,217,165,.22),0 6px 24px rgba(0,217,165,.08)}
+
+/* ── CONTROLS ─────────────────────────────────── */
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+.opts.two{grid-template-columns:repeat(2,1fr)}
+.opts button{padding:13px 6px;border-radius:11px;border:1px solid var(--edge);background:var(--deep);
+  color:var(--dim);font-size:12.5px;font-weight:600;font-family:inherit;transition:.18s;cursor:pointer}
+.opts button:active{transform:scale(.96)}
+.opts button.on{background:linear-gradient(160deg,var(--cool),#00A882);color:#032018;border-color:transparent;font-weight:800}
+input,select{width:100%;padding:14px;border-radius:11px;border:1px solid var(--edge);background:var(--deep);
+  color:var(--txt);font-size:16px;font-family:ui-monospace,Menlo,monospace;margin-top:8px}
+input:focus,select:focus{outline:none;border-color:var(--cool);box-shadow:0 0 0 3px rgba(0,217,165,.14)}
+input::placeholder{color:var(--faint)}
+.btn{display:block;width:100%;padding:15px;border-radius:12px;border:none;font-size:14.5px;font-weight:800;
+  letter-spacing:.02em;font-family:inherit;margin-top:11px;cursor:pointer;transition:.18s;
+  background:linear-gradient(160deg,var(--cool),#00A882);color:#032018}
+.btn:active{transform:scale(.985)}
+.btn.ghost{background:transparent;border:1px solid var(--edge);color:var(--txt)}
+.btn.sm{padding:11px;font-size:12.5px}
+.brow{display:flex;gap:9px}.brow .btn{margin-top:9px}
+label{display:block;margin-top:16px;font-family:ui-monospace,Menlo,monospace;font-size:10px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+/* ── SPLIT TABLE ──────────────────────────────── */
+.split{width:100%;border-collapse:collapse;margin-top:12px}
+.split td{padding:11px 0;border-bottom:1px solid rgba(30,65,82,.45);font-size:13.5px;color:var(--dim)}
+.split td:last-child{text-align:right;font-weight:700;font-family:ui-monospace,Menlo,monospace;color:var(--txt)}
+.split tr.tot td{border-top:1px solid var(--cool);border-bottom:none;padding-top:13px;color:var(--cool);font-weight:800}
+.split tr.tot td:last-child{color:var(--cool)}
+
+/* ── PORTIONS / WEEK ──────────────────────────── */
+.ports{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.port{border-radius:10px;border:1px solid var(--edge);background:var(--deep);padding:11px 4px;text-align:center}
+.port .p{font-weight:800;font-size:14px;font-family:ui-monospace,Menlo,monospace}
+.port .d{font-size:10px;color:var(--faint);margin-top:3px;font-family:ui-monospace,Menlo,monospace}
+.port.open{border-color:rgba(0,217,165,.5);background:rgba(0,217,165,.09)}
+.port.open .p{color:var(--cool)}
+.port.used{opacity:.35}.port.used .p{text-decoration:line-through}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}
+.day{border-radius:10px;border:1px solid var(--edge);background:var(--deep);padding:11px 2px;text-align:center;
+  font-size:14px;font-weight:700;font-family:ui-monospace,Menlo,monospace;cursor:pointer;transition:.18s}
+.day:active{transform:scale(.94)}
+.day .dn{font-size:10px;letter-spacing:.1em;color:var(--faint);margin-bottom:4px;font-weight:400}
+.day.dry{border-color:rgba(76,201,240,.55);background:rgba(76,201,240,.11);color:var(--ice)}
+.day.done{background:linear-gradient(160deg,var(--ice),#2CA8CC);color:#04202B;border-color:transparent}
+.day.done .dn{color:rgba(4,32,43,.65)}
+
+/* ── TIERS ────────────────────────────────────── */
+.pj{width:100%;border-collapse:collapse;font-family:ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.pj td{padding:8px 3px;border-bottom:1px solid rgba(30,65,82,.45);font-size:12px;text-align:right;color:var(--txt)}
+.pj td:first-child{text-align:left;font-family:-apple-system,sans-serif;font-size:12.5px;color:var(--dim)}
+.pj tr.hd td{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--edge)}
+.pj tr:last-child td{border-bottom:none}
+.pj tr.sel td{background:rgba(0,217,165,.07)}
+.pj tr.sel td:first-child{color:var(--cool);font-weight:700}
+.pj .pos{color:var(--cool)}.pj .neg{color:var(--hot)}
+.tier{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid rgba(30,65,82,.45)}
+.tier:last-child{border-bottom:none}
+.tier .dot{width:11px;height:11px;border-radius:50%;background:var(--edge);margin-top:5px;flex-shrink:0}
+.tier.done .dot{background:var(--cool)}
+.tier.cur .dot{background:var(--cool);box-shadow:0 0 0 5px rgba(0,217,165,.16)}
+.tier .h{font-size:14px;font-weight:800;letter-spacing:-.01em}
+.tier .o{font-size:12.5px;color:var(--faint);margin-top:4px;line-height:1.55}
+.tier.done{opacity:.42}.tier:not(.cur):not(.done){opacity:.5}
+.tier.cur .h{color:var(--cool)}
+
+/* ── CALLOUT ──────────────────────────────────── */
+.callout{border-radius:12px;padding:14px;font-size:12.5px;line-height:1.6;color:var(--dim);
+  background:rgba(76,201,240,.06);border:1px solid rgba(76,201,240,.22);margin:12px 0}
+.callout b{color:var(--ice)}
+.callout.warm{background:rgba(255,176,33,.06);border-color:rgba(255,176,33,.22)}
+.callout.warm b{color:var(--warm)}
+.tiny{font-size:11.5px;color:var(--faint);line-height:1.55;margin-top:9px}
+
+/* ── NAV ──────────────────────────────────────── */
+nav{position:fixed;bottom:0;left:0;right:0;max-width:540px;margin:0 auto;display:flex;z-index:60;
+  background:rgba(5,15,22,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-top:1px solid var(--edge);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;padding:13px 0 11px;min-width:0;background:none;border:none;cursor:pointer;color:var(--faint);
+  font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:6px;transition:.2s}
+nav button svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:var(--cool)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <div class="top">
+    <div class="wordmark">Ledger</div>
+    <div class="tierpill mono" id="tierpill">—</div>
+  </div>
+  <div class="lab" id="hero-lab">Debt remaining</div>
+  <div class="heroval" id="hero-val">—</div>
+  <div class="herosub" id="hero-sub"></div>
+  <div class="spectrum">
+    <div class="specbar" id="specbar"></div>
+    <div class="speckey" id="speckey"></div>
+  </div>
+</header>
+<main>
+  <!-- TODAY -->
+  <div class="page on" id="pg-today">
+    <div class="sec"><span class="lab">Position</span></div>
+    <div class="card">
+      <div class="stat"><span class="n">Next money in</span><span class="v ice" id="t-nextpay">—</span></div>
+      <div class="stat"><span class="n">Week cash · food + travel</span><span class="v" id="t-env">—</span></div>
+      <div class="stat"><span class="n">Cash in hand</span><span class="v" id="t-cash">—</span></div>
+      <div class="stat"><span class="n">This month in / out</span><span class="v" id="t-flow">—</span></div>
+      <div class="stat"><span class="n">Debt cleared vs plan</span><span class="v" id="t-drift">—</span></div>
+      <div class="stat"><span class="n">Interest burning</span><span class="v hot" id="t-bleed">—</span></div>
+      <div class="stat"><span class="n">Dry-week streak</span><span class="v cool" id="t-dry">—</span></div>
+    </div>
+    <div class="sec"><span class="lab">Record spend</span></div>
+    <div class="opts" id="spendcats">
+      <button data-c="Food">Food</button><button data-c="Travel">Travel</button>
+      <button data-c="Weed">Supply</button><button data-c="Misc">Misc</button>
+    </div>
+    <input type="number" inputmode="decimal" id="spend-amt" placeholder="Amount £">
+    <button class="btn" onclick="logSpend()">Record</button>
+    <div id="spend-resp"></div>
+    <div class="tiny" id="today-spent"></div>
+    <div class="sec"><span class="lab">Month so far</span></div>
+    <div class="card" id="reconcard"></div>
+  </div>
+
+  <!-- PAYDAY -->
+  <div class="page" id="pg-pay">
+    <div class="sec"><span class="lab">Where you are in the cycle</span></div>
+    <div class="card" id="cyclecard"></div>
+    <div class="sec"><span class="lab">What landed</span></div>
+    <div class="opts" id="paykind">
+      <button data-k="mon">Monday</button><button data-k="thu">Thursday</button>
+      <button data-k="lump">4-wk lump</button><button data-k="perf">Perf fee</button>
+    </div>
+    <div class="opts two" id="paykind2">
+      <button data-k="extra">Overtime / windfall</button>
+      <button data-k="other">Other income</button>
+    </div>
+    <label>Actual amount received</label>
+    <input type="number" inputmode="decimal" id="pay-amt" placeholder="0.00">
+    <div class="tiny" id="pay-expect"></div>
+    <button class="btn ghost" onclick="prescribe()">Show the split</button>
+    <div id="prescription"></div>
+    <div class="sec"><span class="lab">Transactions</span></div>
+    <div class="card" id="txlist"></div>
+    <div class="sec"><span class="lab">This month's commitments</span></div>
+    <div class="card" id="commit"></div>
+    <div class="tiny">Early payments cost £1.50 each. They are not taken from the draw — they come off the lump, and the lump split deducts the cycle's total.</div>
+  </div>
+
+  <!-- DEBTS -->
+  <div class="page" id="pg-debts">
+    <div id="setup" style="display:none"></div>
+    <div class="sec"><span class="lab">Kill order</span></div>
+    <div id="debtlist"></div>
+    <div class="brow">
+      <button class="btn ghost sm" onclick="addDebt()">+ Add a debt</button>
+      <button class="btn ghost sm" onclick="restoreBackup()">Restore</button>
+    </div>
+    <div class="sec"><span class="lab">Keeping your data</span></div>
+    <div id="backupstate" class="callout"></div>
+    <div class="brow">
+      <button class="btn sm" onclick="copyBackup()">Copy backup</button>
+      <button class="btn ghost sm" onclick="exportBackup()">Save as file</button>
+    </div>
+    <div id="restore-box" style="display:none">
+      <textarea id="restore-txt" placeholder="Paste a backup here" style="width:100%;min-height:110px;margin-top:10px;padding:12px;border-radius:11px;border:1px solid var(--edge);background:var(--deep);color:var(--txt);font-family:ui-monospace,Menlo,monospace;font-size:12px"></textarea>
+      <button class="btn" onclick="restoreBackup()">Load it</button>
+    </div>
+    <div class="sec"><span class="lab">Cleared</span></div>
+    <div class="card" id="clearedlist"></div>
+    <div class="sec"><span class="lab">Owed to you</span></div>
+    <div class="card">
+      <div class="stat"><span class="n">Business — director's loan</span><span class="v ice mono" id="dloan-amt">—</span></div>
+      <div class="tiny">Whether the business repays this is a business capital decision. Logged here only when it lands.</div>
+      <button class="btn ghost sm" onclick="logRepay()">Log repayment received</button>
+    </div>
+    <div class="sec"><span class="lab">Pay a debt</span></div>
+    <select id="pay-debt"></select>
+    <input type="number" inputmode="decimal" id="pay-debt-amt" placeholder="Amount £">
+    <button class="btn" onclick="payDebt()">Record payment</button>
+  </div>
+
+  <!-- WEED -->
+  <div class="page" id="pg-weed">
+    <div class="sec"><span class="lab">Supply</span></div>
+    <div id="weed-status"></div>
+    <div id="weed-ports"></div>
+    <div id="weed-checkin"></div>
+    <div class="sec"><span class="lab">Log a purchase</span></div>
+    <div class="opts two">
+      <button onclick="buy('drip')">Drip · £30 / 3.5g</button>
+      <button id="bulkbtn" onclick="buy('bulk')">Bulk · £165 / 28g</button>
+    </div>
+    <div id="portion-confirm"></div>
+    <div class="sec"><span class="lab">Dry days · 2 a week</span></div>
+    <div id="dryweek"></div>
+    <div class="tiny">Tap two days to place them anywhere you like. Tap again to mark done. One miss costs the week, never the history.</div>
+    <div id="weed-econ"></div>
+  </div>
+
+  <div class="page" id="pg-worth"></div>
+
+  <!-- PLAN -->
+  <div class="page" id="pg-plan">
+    <div class="sec"><span class="lab">The climb</span></div>
+    <div class="card" id="tierlist"></div>
+    <div class="sec"><span class="lab">Countdown</span></div>
+    <div class="card glow">
+      <div class="stat"><span class="n">Live debts gone in</span><span class="v cool" id="cd-months">—</span></div>
+      <div class="stat"><span class="n">Shifts left until then</span><span class="v" id="cd-shifts">—</span></div>
+      <div class="stat"><span class="n">Rate it assumes</span><span class="v" id="cd-rate">—</span></div>
+      <div id="cd-modes"></div>
+      <div class="tiny">The driving has an end condition, not an identity. Every £100 of performance fee pulls this in by about a week.</div>
+    </div>
+    <div class="sec"><span class="lab">Debt progress by month</span></div>
+    <div class="card" id="driftcard"></div>
+    <div class="sec"><span class="lab">Projection</span></div>
+    <div class="card" id="projection"></div>
+    <div class="sec"><span class="lab">Pots</span></div>
+    <div id="pots"></div>
+    <div class="brow">
+      <button class="btn ghost sm" onclick="addPot('ps5')">+ PS5 Pro</button>
+      <button class="btn ghost sm" onclick="addPot('buffer')">+ Buffer</button>
+      <button class="btn ghost sm" onclick="addPot('settle')">+ Settle</button>
+    </div>
+    <div class="sec"><span class="lab">Alerts</span></div>
+    <div class="card">
+      <div class="tiny" style="margin-top:0">Ledger cannot notify you on its own \u2014 an offline page has no way to wake itself up.
+      Your calendar can. This writes every key date as a repeating event with its own alarm: paydays, the lump,
+      dry-day planning, the retwist, the monthly position check, and the date the earrings stop being worth redeeming.</div>
+      <button class="btn ghost sm" onclick="downloadICS()">Download alerts to my calendar</button>
+    </div>
+    <div class="callout">Both defaults are <b>2026-vintage</b> — young books settle badly. Hold them at £1 token payments and revisit written full-and-final offers from spring 2027, when the pot exists and their book has aged. They drop off the credit file in 2032 either way.</div>
+  </div>
+</main>
+<nav>
+  <button class="on" data-p="today"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Today</button>
+  <button data-p="pay"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 11h20"/></svg>Payday</button>
+  <button data-p="debts"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19h-20"/></svg>Debts</button>
+  <button data-p="weed"><svg viewBox="0 0 24 24"><path d="M12 21V11M12 11c0-4 3-7 3-7s2 4 0 7M12 11c0-4-3-7-3-7S7 8 9 11M12 13c2-2 5-2 7-1 0 0-2 4-7 3M12 13c-2-2-5-2-7-1 0 0 2 4 7 3"/></svg>Supply</button>
+  <button data-p="worth"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></svg>Worth</button>
+  <button data-p="plan"><svg viewBox="0 0 24 24"><path d="M4 21V10M10 21V4M16 21v-8"/><path d="M2 21h20"/></svg>Plan</button>
+</nav>
+</div>
+<script>
+'use strict';
+var LKEY='ledger_v1';
+function seed(){
+  return {
+    settings:{payAnchor:'2026-07-10',cycle:28,mon:85,thu:37,fee:1.5,income:1000,
+      fixed:{gym:35,phone:70,youtube:17,playstation:11,haircut:25,retwist:70},
+      retwistWeeks:6, lastRetwist:null,food:225,travel:108,
+      weedDrip:8.57,weedBulk:{g:28,cost:165},rationG:3.5,rationDays:3,misc:40},
+    debts:[],
+    origs:{}, payments:[], income:[], spend:[],
+    weed:{ounces:[],dry:{}},
+    pots:{ps5:0,buffer:0,settle:0},
+    carry:{wk:null,amt:0}, drift:{}, extras:[], billsPaid:{},
+    cash:1, tx:[], earmark:{}, startDate:null, snaps:{}, settleRate:0.5, savGrowth:3.0, ps5Target:700, lastAccrue:null, earringValue:300,
+    dloan:0
+  };
+}
+var S=load();
+function load(){
+  try{var raw=localStorage.getItem(LKEY);
+    if(raw){ var o=JSON.parse(raw);
+      if(o&&o.debts){
+        var def=seed().settings;                       // fill in anything added since
+        if(!o.settings) o.settings=def;
+        for(var kk in def) if(o.settings[kk]===undefined) o.settings[kk]=def[kk];
+        for(var fk in def.fixed) if(o.settings.fixed[fk]===undefined) o.settings.fixed[fk]=def.fixed[fk];
+        if(!o.billsPaid) o.billsPaid={};
+        if(!o.pots) o.pots={ps5:0,buffer:0,settle:0};
+        if(!o.origs) o.origs={};
+        if(!o.weed) o.weed={ounces:[],dry:{}};
+        if(!o.payments) o.payments=[]; if(!o.income) o.income=[]; if(!o.spend) o.spend=[];
+        if(o.dloan===undefined) o.dloan=0;
+        if(o.cash===undefined) o.cash=1;
+        if(!o.tx) o.tx=[];
+        if(!o.earmark) o.earmark={};
+        if(o.startDate===undefined) o.startDate=null;
+        if(!o.snaps) o.snaps={};
+        if(o.settleRate===undefined) o.settleRate=0.5;
+        if(o.savGrowth===undefined) o.savGrowth=3.0;
+        if(o.ps5Target===undefined) o.ps5Target=700;
+        if(o.earringValue===undefined) o.earringValue=300;
+        if(o.lastAccrue===undefined) o.lastAccrue=null;
+        var pw=o.debts.filter(function(d){return d.id==='pawn';})[0];
+        if(pw&&pw.accrue===undefined){ pw.accrue=20; pw.min=0; delete pw.flat; }
+        o.debts.forEach(function(d){ if(d.accrue&&d.lumpOnly===undefined) d.lumpOnly=true; });
+        if(!o.drift) o.drift={};
+        if(!o.extras) o.extras=[];
+        if(!o.carry||typeof o.carry!=='object') o.carry={wk:null,amt:0};
+        return o;
+      } } }catch(e){}
+  var s=seed(); s.debts.forEach(function(d){s.origs[d.id]=d.bal;}); return s;
+}
+function save(){ try{localStorage.setItem(LKEY,JSON.stringify(S));}catch(e){} }
+function GBP(x){ var n=Math.round(x*100)/100; return (n<0?'\u2212':'')+'\u00A3'+Math.abs(n).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function GBP0(x){ var n=Math.round(x); return (n<0?'\u2212':'')+'\u00A3'+Math.abs(n).toLocaleString('en-GB'); }
+function today(){ return new Date(); }
+function iso(d){ var z=new Date(d); z.setMinutes(z.getMinutes()-z.getTimezoneOffset()); return z.toISOString().slice(0,10); }
+function addDays(d,n){ var x=new Date(d); x.setDate(x.getDate()+n); return x; }
+function daysBetween(a,b){ return Math.round((new Date(iso(b))-new Date(iso(a)))/86400000); }
+
+/* ── heat ── */
+function heat(d){
+  if(d.frozen) return 'var(--ice)';
+  if(d.apr>=30) return 'var(--hot)';
+  if(d.apr>=20) return 'var(--ember)';
+  return 'var(--warm)';
+}
+function heatTag(d){
+  if(d.frozen) return 'ice';
+  if(d.apr>=20) return 'hot';
+  return '';
+}
+function openDebts(){ return S.debts.filter(function(d){return d.bal>0.005;}); }
+function liveDebts(){ return openDebts().filter(function(d){return !d.frozen;}); }
+function bleedPerDay(){
+  var b=0;
+  openDebts().forEach(function(d){
+    if(d.accrue) b+=d.accrue/30.44;
+    else if(d.apr) b+=d.bal*d.apr/36500;
+  });
+  return b;
+}
+function origTotal(){ var t=0; for(var k in S.origs) t+=S.origs[k]; return t; }
+function nowTotal(){ return S.debts.reduce(function(a,b){return a+b.bal;},0); }
+
+
+/* ── DRIFT ENGINE ──────────────────────────────────────────────
+   Every pound over plan comes out of the attack budget — there is no other
+   pot. So overspend is never scored as failure, it is priced in the only
+   currency that matters here: days added to the countdown. Underspend prices
+   the same way in reverse. Nothing is hidden and nothing is scolded. */
+function monthKey(d){ return iso(d||today()).slice(0,7); }
+
+/* Retwist is a per-visit cost on a stretchable interval, so it is budgeted at its
+   true monthly equivalent and only charged to a payday when a visit is actually due. */
+function retwistMonthly(){
+  return S.settings.fixed.retwist*(52/S.settings.retwistWeeks)/12;
+}
+function retwistDueDate(){
+  if(!S.settings.lastRetwist) return today();
+  return addDays(new Date(S.settings.lastRetwist+'T12:00:00'), S.settings.retwistWeeks*7);
+}
+function retwistDue(){ return daysBetween(today(),retwistDueDate())<=0; }
+function setRetwistWeeks(w){
+  S.settings.retwistWeeks=w; save(); renderCommit(); renderAll();
+  var pk=document.querySelector('#paykind button.on')||document.querySelector('#paykind2 button.on');
+  if(pk) prescribe();
+}
+function fixedSum(rayloAlive){
+  var fx=S.settings.fixed;
+  return fx.gym+fx.phone+fx.youtube+fx.haircut+retwistMonthly()+(rayloAlive?fx.playstation:0);
+}
+function fixedNow(){
+  var ray=S.debts.filter(function(d){return d.id==='raylo';})[0];
+  return fixedSum(!!(ray&&ray.bal>0.005));
+}
+function miscBudget(){
+  // Learn from reality: use the greater of the allowance and the trailing
+  // 3-month average, so the projection stops flattering itself over time.
+  var ms=[],k;
+  for(var i=1;i<=3;i++){ k=monthKey(addDays(today(),-i*30)); ms.push(spendIn('Misc',k)); }
+  var avg=ms.length?ms.reduce(function(a,b){return a+b;},0)/ms.length:0;
+  return Math.max(S.settings.misc,Math.round(avg));
+}
+function attackPerMonth(){
+  return Math.max(1, S.settings.income - fixedNow() - S.settings.food - S.settings.travel
+                     - 165 - miscBudget() - minsTotal());
+}
+function dayCost(amount){ return amount/attackPerMonth()*30.44; }
+function weekEnv(){
+  var wk=iso(weekMonday(today()));
+  var c=(S.carry&&S.carry.wk===wk)?S.carry.amt:0;
+  var planned=Math.max(0,77-c);
+  var spent=(S.tx||[]).filter(function(t){return t.dir==='out'&&(t.cat==='Food'||t.cat==='Travel')&&t.date>=wk;})
+                   .reduce(function(a,b){return a+b.amt;},0);
+  return {planned:planned,spent:spent,left:planned-spent,over:Math.max(0,spent-planned)};
+}
+function spendIn(cat,k){
+  return (S.tx||[]).filter(function(t){return t.dir==='out'&&t.cat===cat&&t.date.slice(0,7)===k;})
+                   .reduce(function(a,b){return a+b.amt;},0);
+}
+/* Only judge the stretch actually being recorded. Starting on the 26th does not
+   mean three weeks of unlogged spending counts as coming in under. */
+function monthProgress(k){
+  k=k||monthKey();
+  var n=today(), y=+k.slice(0,4), mo=+k.slice(5)-1;
+  var dim=new Date(y,mo+1,0).getDate();
+  var from=1;
+  if(S.startDate&&S.startDate.slice(0,7)===k) from=+S.startDate.slice(8);
+  var to=(k===monthKey())? n.getDate() : dim;
+  return Math.max(0,(to-from+1))/dim;
+}
+function plannedFor(kind){
+  return kind==='mon'?S.settings.mon : kind==='thu'?S.settings.thu : kind==='lump'?estLump() : 0;
+}
+/* Drift is computed from the transaction list every time, so deleting or editing an
+   entry always corrects it. Positive = behind plan, negative = ahead. */
+function monthDrift(k){
+  k=k||monthKey();
+  var d=0;
+  (S.tx||[]).forEach(function(t){
+    if(t.dir!=='in'||t.date.slice(0,7)!==k) return;
+    d -= (t.amt - plannedFor(t.kind));                  // more than planned = ahead
+  });
+  // Only judge a category once something has actually been logged against it.
+  // No entries means no record, not no spending — crediting that as underspend
+  // would invent progress that has not happened.
+  var prog=monthProgress(k), plans={Food:S.settings.food,Travel:S.settings.travel,Weed:165,Misc:miscBudget()};
+  Object.keys(plans).forEach(function(c){
+    var act=spendIn(c,k);
+    if(act<=0) return;
+    d += (act - plans[c]*prog);
+  });
+  return d;
+}
+function driftMonths(){
+  var ks={};
+  (S.tx||[]).forEach(function(t){ ks[t.date.slice(0,7)]=1; });
+  return Object.keys(ks).sort();
+}
+
+/* Drift reads in plain terms, never as a bare signed number: money under plan
+   (or unforecast income) is AHEAD and buys days back; money over plan is
+   BEHIND and costs days. The sign convention stays internal. */
+function driftWords(v){
+  if(Math.abs(v)<0.5) return {cls:'',txt:'on plan',days:''};
+  if(v<0) return {cls:'cool',txt:GBP0(-v)+' ahead',days:Math.abs(dayCost(v)).toFixed(1)+' days sooner'};
+  return {cls:'hot',txt:GBP0(v)+' behind',days:dayCost(v).toFixed(1)+' days later'};
+}
+
+function recon(){
+  var k=monthKey();
+  function act(c){ return spendIn(c,k); }
+  var rows=[
+    ['Food',S.settings.food,act('Food')],
+    ['Travel',S.settings.travel,act('Travel')],
+    ['Supply',165,act('Weed')],
+    ['Misc',miscBudget(),act('Misc')]
+  ];
+  var pT=0,aT=0;
+  rows.forEach(function(r){ pT+=r[1]; aT+=r[2]; });
+  return {rows:rows,planned:pT,actual:aT,drift:aT-pT};
+}
+function absorbNext(amt){
+  var nw=iso(weekMonday(addDays(today(),7)));
+  if(!S.carry||S.carry.wk!==nw) S.carry={wk:nw,amt:0};
+  S.carry.amt+=amt;
+  save(); renderToday();
+  document.getElementById('spend-resp').innerHTML=
+    '<div class="callout"><b>Carried to next week.</b> That week runs on '+GBP0(Math.max(0,77-S.carry.amt))+
+    ' instead of \u00A377. This week stands, the countdown holds \u2014 you have paid for it out of next week rather than out of the plan.</div>';
+}
+function acceptDrift(amt){
+  save(); renderToday(); renderPlan();
+  document.getElementById('spend-resp').innerHTML=
+    '<div class="callout warm"><b>Behind by '+GBP(amt)+'.</b> It comes off this month\'s payoff \u2014 about '+
+    '<b>'+dayCost(amt).toFixed(1)+' days</b> later to debt-free. Recorded, not judged, and in the projection now.</div>';
+}
+function logExtra(){
+  var a=parseFloat(document.getElementById('pay-amt').value);
+  if(isNaN(a)||a<=0)return;
+  S.extras.push({date:iso(today()),amt:a});
+  S.income.push({date:iso(today()),kind:'extra',amt:a,fee:0});
+  save(); renderAll();
+}
+
+
+/* ── COMMITMENTS ───────────────────────────────────────────────
+   A payday split should only ever deduct what is still owed. Minimums count as
+   met when this month's payments to that debt already cover them, bills when
+   they are ticked off, and the supply fund when a bulk ounce is already open.
+   Money landing after everything is settled is entirely free to attack. */
+function fixedItems(){
+  var fx=S.settings.fixed, ray=S.debts.filter(function(d){return d.id==='raylo';})[0];
+  var it=[['gym','Gym',fx.gym],['phone','Phone',fx.phone],['youtube','YouTube',fx.youtube],
+          ['haircut','Haircut',fx.haircut]];
+  if(ray&&ray.bal>0.005) it.push(['playstation','PlayStation',fx.playstation]);
+  return it;
+}
+function billPaid(id){ return (S.billsPaid[monthKey()]||[]).indexOf(id)>-1; }
+function toggleBill(id){
+  if(id==='retwist'){ S.settings.lastRetwist=iso(today()); save(); renderCommit(); renderAll();
+    var p0=document.querySelector('#paykind button.on')||document.querySelector('#paykind2 button.on');
+    if(p0) prescribe(); return; }
+  var k=monthKey();
+  if(!S.billsPaid[k]) S.billsPaid[k]=[];
+  var i=S.billsPaid[k].indexOf(id);
+  if(i>-1) S.billsPaid[k].splice(i,1); else S.billsPaid[k].push(id);
+  save(); renderCommit();
+  var pk=document.querySelector('#paykind button.on')||document.querySelector('#paykind2 button.on');
+  if(pk) prescribe();
+}
+function billsOutstanding(){
+  var s=fixedItems().reduce(function(a,i){ return a+(billPaid(i[0])?0:i[2]); },0);
+  if(retwistDue()) s+=S.settings.fixed.retwist;
+  return s;
+}
+function paidToDebtThisMonth(d){
+  var k=monthKey();
+  return (S.tx||[]).filter(function(p){return p.dir==='out'&&p.debt===d.id&&p.date.slice(0,7)===k;})
+                   .reduce(function(a,b){return a+b.amt;},0);
+}
+function minMet(d){ return !d.min || paidToDebtThisMonth(d)>=d.min-0.005; }
+function minsOutstanding(){
+  return openDebts().reduce(function(s,d){ return s+((d.min>0&&!minMet(d))?d.min:0); },0);
+}
+function weedOutstanding(){
+  var o=curOunce();
+  if(o&&o.portions) return 0;              // a bulk ounce is already open
+  var k=monthKey();
+  var spentThis=spendIn('Weed',k);
+  return Math.max(0,165-spentThis);
+}
+
+function renderCycle(){
+  var host=document.getElementById('cyclecard'); if(!host)return;
+  var cs=cycleStart(), lump=nextLump(), day=cycleDay(), dleft=daysBetween(today(),lump);
+  var drawn=drawnThisCycle(), rem=drawsRemaining();
+  var names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var h='<div class="stat"><span class="n">Cycle day</span><span class="v" style="font-size:15px">'+day+' of '+S.settings.cycle+'</span></div>';
+  h+='<div class="stat"><span class="n">Next lump</span><span class="v ice" style="font-size:15px">'+
+     names[lump.getDay()]+' '+lump.getDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][lump.getMonth()]+
+     ' \u00b7 '+dleft+'d</span></div>';
+  h+='<div class="stat"><span class="n">Drawn early so far</span><span class="v" style="font-size:15px">'+GBP0(drawn)+'</span></div>';
+  h+='<div class="stat"><span class="n">Still to draw before it</span><span class="v" style="font-size:14px">'+
+     rem.mon+' Mon \u00b7 '+rem.thu+' Thu \u00b7 about '+GBP0(rem.amt)+'</span></div>';
+  h+='<div class="stat"><span class="n"><b>Lump should land near</b></span><span class="v cool">'+GBP0(estLump())+'</span></div>';
+  var track=(S.income||[]).some(function(e){return (e.kind==='mon'||e.kind==='thu')&&e.date>=iso(cs);});
+  if(!track&&day>3){
+    h+='<div class="callout warm" style="margin-top:10px"><b>Started mid-cycle.</b> You are '+day+' days in with nothing '+
+       'logged yet, so the lump estimate above assumes you have drawn nothing \u2014 it will be too high. Enter what you have '+
+       'already taken since '+cs.getDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][cs.getMonth()]+
+       ' and everything lines up from here.'+
+       '<button class="btn sm" onclick="setDrawn()">Enter what I have drawn</button></div>';
+  }
+  host.innerHTML=h;
+}
+function setDrawn(){
+  var v=prompt('Total drawn early since this cycle started (\u00A3):','0');
+  var a=parseFloat(v); if(isNaN(a)||a<0)return;
+  var n=prompt('How many early payments was that? (each carries a \u00A31.50 fee)','4');
+  var cnt=parseInt(n,10); if(isNaN(cnt)||cnt<0) cnt=0;
+  S.income.push({date:iso(cycleStart()),kind:'mon',amt:a,fee:cnt*S.settings.fee,backfill:true});
+  save(); renderAll();
+}
+function renderCommit(){
+  var host=document.getElementById('commit'); if(!host) return;
+  var h='';
+  openDebts().sort(function(a,b){return a.order-b.order;}).forEach(function(d){
+    if(!d.min) return;
+    var met=minMet(d);
+    h+='<div class="stat"><span class="n">'+d.nm+'</span><span class="v '+(met?'cool':'')+'" style="font-size:13.5px">'+
+       (met?'\u2713 paid':GBP0(d.min)+' due')+'</span></div>';
+  });
+  fixedItems().forEach(function(i){
+    var p=billPaid(i[0]);
+    h+='<div class="stat" style="cursor:pointer" onclick="toggleBill(\''+i[0]+'\')"><span class="n">'+i[1]+'</span>'+
+       '<span class="v '+(p?'cool':'')+'" style="font-size:13.5px">'+(p?'\u2713 paid':GBP0(i[2])+' due')+'</span></div>';
+  });
+  var rd=daysBetween(today(),retwistDueDate());
+  h+='<div class="stat" style="cursor:pointer" onclick="toggleBill(\'retwist\')"><span class="n">Hair \u2014 retwist</span>'+
+     '<span class="v '+(rd>0?'cool':'')+'" style="font-size:13.5px">'+
+     (rd>0?'\u2713 due in '+rd+'d':GBP0(S.settings.fixed.retwist)+' due')+'</span></div>';
+  h+='<div class="tiny" style="margin:2px 0 8px">'+GBP0(S.settings.fixed.retwist)+' every '+
+     S.settings.retwistWeeks+' weeks = <b>'+GBP0(retwistMonthly())+'/month</b>. Tap the row when you get it done.</div>';
+  h+='<div class="opts" style="margin-top:0">'+
+     [4,5,6,8].map(function(w){ return '<button onclick="setRetwistWeeks('+w+')" class="'+
+       (S.settings.retwistWeeks===w?'on':'')+'">'+w+'w \u00b7 '+GBP0(S.settings.fixed.retwist*(52/w)/12)+'</button>'; }).join('')+
+     '</div>';
+  var wo=weedOutstanding();
+  h+='<div class="stat"><span class="n">Supply fund</span><span class="v '+(wo<=0?'cool':'')+'" style="font-size:13.5px">'+
+     (wo<=0?'\u2713 covered':GBP0(wo)+' due')+'</span></div>';
+  var tot=minsOutstanding()+billsOutstanding()+wo;
+  h+='<div class="stat"><span class="n"><b>Still to cover this month</b></span><span class="v '+(tot<=0?'cool':'warm')+'">'+GBP0(tot)+'</span></div>';
+  if(tot<=0) h+='<div class="tiny">Everything is settled. Any money that lands now goes straight at the debt.</div>';
+  else h+='<div class="tiny">Tap a bill to mark it paid. The split only ever deducts what is still outstanding.</div>';
+  host.innerHTML=h;
+}
+
+/* ── hero + spectrum ── */
+function renderHero(){
+  var live=liveDebts().reduce(function(a,b){return a+b.bal;},0);
+  var froz=openDebts().filter(function(d){return d.frozen;}).reduce(function(a,b){return a+b.bal;},0);
+  var b=bleedPerDay();
+  document.getElementById('hero-val').textContent=GBP0(live+froz);
+  var cleared=origTotal()-nowTotal();
+  var pct=origTotal()>0?100*cleared/origTotal():0;
+  document.getElementById('hero-sub').innerHTML=
+    '<b>'+GBP0(cleared)+'</b> cleared \u00b7 '+pct.toFixed(0)+'% of the way \u00b7 burning <b>'+GBP(b)+'</b> a day';
+  var tn=tierNow();
+  var names=['T0 Stabilise','T1 Clear','T2 Milestone','T3 Buffer','T4 Build'];
+  document.getElementById('tierpill').textContent=names[tn];
+  // spectrum
+  var bar='', key='', total=origTotal()||1;
+  if(cleared>0.5) bar+='<span class="cleared" style="flex-grow:'+(cleared/total*100)+'"></span>';
+  var q=S.debts.slice().sort(function(a,b){return a.order-b.order;});
+  q.forEach(function(d){
+    if(d.bal<=0.005)return;
+    bar+='<span style="flex-grow:'+(d.bal/total*100)+';background:'+heat(d)+'"></span>';
+  });
+  document.getElementById('specbar').innerHTML=bar;
+  var keys=[];
+  if(cleared>0.5) keys.push(['linear-gradient(90deg,var(--ice),var(--cool))','cleared '+GBP0(cleared)]);
+  if(liveDebts().some(function(d){return d.apr>=30;})) keys.push(['var(--hot)','30%+ APR']);
+  if(liveDebts().some(function(d){return d.apr>=20&&d.apr<30;})) keys.push(['var(--ember)','20-30% APR']);
+  if(liveDebts().some(function(d){return d.apr<20;})) keys.push(['var(--warm)','no interest']);
+  if(froz>0) keys.push(['var(--ice)','frozen '+GBP0(froz)]);
+  keys.forEach(function(k){ key+='<div class="k"><i style="background:'+k[0]+'"></i>'+k[1]+'</div>'; });
+  document.getElementById('speckey').innerHTML=key;
+}
+
+/* ── paydays ── */
+
+
+/* ── DEBT PROGRESS ─────────────────────────────────────────────
+   "Against plan" answers one question only: how much has actually come off the
+   debt this month against how much should have by now. Payments count toward it,
+   new debt taken on counts against it, and the pawn growing on its own counts
+   against it too. Where the money came from, and how net worth is moving over
+   time, are separate questions with their own views. */
+function plannedDebtPay(){ return minsTotal()+attackPerMonth(); }
+function debtProgress(k){
+  k=k||monthKey();
+  var paid=(S.tx||[]).filter(function(t){return t.dir==='out'&&t.debt&&t.date.slice(0,7)===k;})
+                     .reduce(function(a,b){return a+b.amt;},0);
+  var setAside=(S.tx||[]).filter(function(t){
+    if(t.dir!=='out'||!t.debt||t.date.slice(0,7)!==k||t.redeem) return false;
+    var d=S.debts.filter(function(x){return x.id===t.debt;})[0];
+    return d&&d.lumpOnly;
+  }).reduce(function(a,b){return a+b.amt;},0);
+  var added=S.debts.filter(function(d){return d.addedOn&&d.addedOn.slice(0,7)===k;})
+                   .reduce(function(a,b){return a+(S.origs[b.id]||0);},0);
+  var grew=S.debts.filter(function(d){return d.accrue&&d.bal>0.005;})
+                  .reduce(function(a,b){return a+b.accrue;},0)*monthProgress(k);
+  // Money set aside for an all-or-nothing debt has not reduced anything yet.
+  var real=paid-setAside;
+  var net=real-added-grew;
+  var expected=plannedDebtPay()*monthProgress(k);
+  return {paid:paid, setAside:setAside, real:real, added:added, grew:grew,
+          net:net, expected:expected, vs:net-expected};
+}
+function progWords(k){
+  var p=debtProgress(k);
+  if(Math.abs(p.vs)<1) return {cls:'',txt:'on plan',days:'',p:p};
+  if(p.vs>0) return {cls:'cool',txt:GBP0(p.vs)+' ahead',days:(p.vs/attackPerMonth()*30.44).toFixed(1)+' days sooner',p:p};
+  return {cls:'hot',txt:GBP0(-p.vs)+' behind',days:(-p.vs/attackPerMonth()*30.44).toFixed(1)+' days later',p:p};
+}
+
+
+/* Measured payment rate: what has really been cleared per month, from the log.
+   Set-aside money is excluded because it has not cleared anything, and the current
+   part-month is excluded because it would read low until it finishes. */
+function debtRateMonths(){
+  var ks={}, cur=monthKey();
+  (S.tx||[]).forEach(function(t){ if(t.dir==='out'&&t.debt) ks[t.date.slice(0,7)]=1; });
+  return Object.keys(ks).filter(function(k){return k!==cur;}).sort();
+}
+function obsDebtRate(){
+  var ks=debtRateMonths();
+  if(!ks.length) return null;
+  var w=ks.slice(-6);
+  var tot=w.reduce(function(a,k){ var p=debtProgress(k); return a+Math.max(0,p.real-p.added); },0);
+  return tot/w.length;
+}
+function payRate(){
+  var o=obsDebtRate();
+  if(o===null||S.rateMode==='plan') return {v:plannedDebtPay(),src:'plan'};
+  if(S.rateMode==='obs') return {v:Math.max(1,o),src:'measured'};
+  return {v:Math.max(1,o),src:'measured'};      // default to reality once it exists
+}
+function setRateMode(m){ S.rateMode=m; save(); renderAll(); }
+
+/* ── PAY CYCLE ─────────────────────────────────────────────────
+   The lump is whatever is left of the month's earnings after early draws, so its
+   size depends on what has already been taken this cycle and what will still be
+   taken before payday. Starting mid-cycle, both matter. */
+function cycleStart(){
+  var a=new Date(S.settings.payAnchor+'T12:00:00'), n=today();
+  while(addDays(a,S.settings.cycle)<=n) a=addDays(a,S.settings.cycle);
+  return a;
+}
+function cycleDay(){ return daysBetween(cycleStart(),today())+1; }
+function drawnThisCycle(){
+  var cs=iso(cycleStart());
+  return (S.tx||[]).filter(function(e){
+    return e.dir==='in'&&(e.kind==='mon'||e.kind==='thu')&&e.date>=cs;
+  }).reduce(function(a,b){return a+b.amt;},0);
+}
+/* Early-payment fees are not taken from the draw itself \u2014 they come off the lump. */
+function drawCountThisCycle(){
+  var cs=iso(cycleStart());
+  return (S.tx||[]).filter(function(e){return e.dir==='in'&&(e.kind==='mon'||e.kind==='thu')&&e.date>=cs;}).length;
+}
+function feesThisCycle(){ return drawCountThisCycle()*S.settings.fee; }
+function drawsRemaining(){
+  var n=today(), lump=nextLump(), mon=0, thu=0;
+  for(var d=addDays(n,1); d<lump; d=addDays(d,1)){
+    if(d.getDay()===1) mon++;
+    if(d.getDay()===4) thu++;
+  }
+  return {mon:mon,thu:thu,amt:mon*S.settings.mon+thu*S.settings.thu,fees:(mon+thu)*S.settings.fee};
+}
+function nextLump(){
+  var a=new Date(S.settings.payAnchor+'T12:00:00');
+  var n=today();
+  while(a<=n) a=addDays(a,S.settings.cycle);
+  return a;
+}
+function nextPayEvent(){
+  var n=today(); var dow=n.getDay();
+  var mon=addDays(n,((1-dow)+7)%7); var thu=addDays(n,((4-dow)+7)%7);
+  var c=[{t:'Mon \u00b7 '+GBP0(S.settings.mon),d:mon},{t:'Thu \u00b7 '+GBP0(S.settings.thu),d:thu},{t:'Lump',d:nextLump()}];
+  c.sort(function(a,b){return a.d-b.d;});
+  return c[0];
+}
+
+/* What this kind of payday usually lands, learned from the last few. Falls back to
+   the planned figure until there is enough to average. The number you type is always
+   the actual — the expectation is only there to show you the variance. */
+function expectedFor(kind){
+  var es=(S.tx||[]).filter(function(e){return e.dir==='in'&&e.kind===kind;});
+  if(es.length>=2){
+    var w=es.slice(-6);
+    return w.reduce(function(a,b){return a+b.amt;},0)/w.length;
+  }
+  return kind==='mon'?S.settings.mon : kind==='thu'?S.settings.thu : kind==='lump'?estLump() : null;
+}
+function showExpect(kind){
+  var el=document.getElementById('pay-expect'); if(!el)return;
+  var e=expectedFor(kind);
+  if(e===null){ el.innerHTML='Nothing forecast against this \u2014 whatever lands is pure gain.'; return; }
+  var es=(S.tx||[]).filter(function(x){return x.dir==='in'&&x.kind===kind;});
+  el.innerHTML='Usually about <b>'+GBP0(e)+'</b>'+(es.length>=2?' (average of your last '+Math.min(6,es.length)+')':' (planned figure)')+
+               ' \u2014 type what actually landed.';
+}
+function minsTotal(){ return openDebts().reduce(function(s,d){return s+(d.min||0);},0); }
+function estLump(){
+  var r=drawsRemaining();
+  return Math.max(0, S.settings.income - drawnThisCycle() - feesThisCycle() - r.amt - r.fees);
+}
+function attackTarget(){
+  var q=liveDebts().sort(function(a,b){return a.order-b.order;});
+  return q.length?q[0]:null;
+}
+function prescribe(){
+  var k=document.querySelector('#paykind button.on')||document.querySelector('#paykind2 button.on');
+  var kind=k?k.getAttribute('data-k'):'lump';
+  var amt=parseFloat(document.getElementById('pay-amt').value);
+  if(isNaN(amt)||amt<=0){ amt = kind==='mon'?S.settings.mon : kind==='thu'?S.settings.thu : kind==='lump'?estLump() : 0; }
+  var rows=[], attack=0, t=attackTarget();
+  var raylo=S.debts.filter(function(d){return d.id==='raylo';})[0]||{bal:0};
+  var exp=expectedFor(kind), varTxt='';
+  if(exp!==null&&Math.abs(amt-exp)>=1){
+    varTxt = (amt>exp)
+      ? '<b>'+GBP0(amt-exp)+' more than usual</b> \u2014 all of the difference goes at the debt.'
+      : '<b>'+GBP0(exp-amt)+' less than usual</b> \u2014 the split below already accounts for it.';
+  }
+  if(kind==='mon'){
+    var env=Math.min(amt,77);
+    attack=Math.max(0,amt-env);
+    rows=[['Received',amt],['Week cash \u00b7 food + travel',-env]];
+  } else if(kind==='thu'){
+    attack=Math.max(0,amt);
+    rows=[['Received',amt]];
+  } else if(kind==='perf'){
+    attack=amt; rows=[['Performance fee',amt]];
+  } else if(kind==='extra'||kind==='other'){
+    attack=amt;
+    rows=[[kind==='extra'?'Overtime / windfall':'Unforecast income',amt],
+          ['Nothing forecast against it',0]];
+  } else {
+    var mins=minsOutstanding(), fxT=billsOutstanding(), weed=weedOutstanding();
+    var fees=feesThisCycle();
+    attack=Math.max(0,amt-mins-fxT-weed-fees);
+    rows=[['Lump received',amt]];
+    if(fees>0) rows.push([drawCountThisCycle()+' early-payment fees',-fees]);
+    if(mins>0) rows.push(['Minimums still due',-mins]);
+    if(fxT>0) rows.push(['Fixed bills still due',-fxT]);
+    if(weed>0) rows.push(['Supply fund',-weed]);
+    var settled=[];
+    if(minsOutstanding()<minsTotal()) settled.push('minimums');
+    if(billsOutstanding()<fixedNow()) settled.push('bills');
+    if(weed<=0) settled.push('supply');
+    if(settled.length) rows.push(['Already covered: '+settled.join(', '),0]);
+  }
+  var h='<table class="split">';
+  rows.forEach(function(r){ h+='<tr><td>'+r[0]+'</td><td>'+(r[1]<0?'\u2212':'')+GBP(Math.abs(r[1]))+'</td></tr>'; });
+  h+='<tr class="tot"><td>'+(t?'Attack \u2192 '+t.nm:'All live debt clear')+'</td><td>'+GBP(attack)+'</td></tr></table>';
+  if(varTxt) h+='<div class="callout'+((exp!==null&&amt<exp)?' warm':'')+'">'+varTxt+'</div>';
+  if(attack>0) h+='<div class="callout">Worth about <b>'+dayCost(attack).toFixed(1)+' days</b> off the countdown.'+
+    ((kind==='extra'||kind==='other')?' Unforecast money is pure acceleration \u2014 none of the plan depends on it.':'')+'</div>';
+  h+='<button class="btn" onclick="applyPay(\''+kind+'\','+amt+','+attack.toFixed(2)+')">Apply \u2014 record it all</button>';
+  document.getElementById('prescription').innerHTML=h;
+}
+function applyPay(kind,amt,attack){
+  attack=parseFloat(attack);
+  txAdd({dir:'in',kind:kind,amt:amt});
+  if(kind==='lump'){ var f=feesThisCycle(); if(f>0) txAdd({dir:'out',cat:'Fee',amt:f}); }
+  if(kind==='extra'||kind==='other'){ S.extras.push({date:iso(today()),amt:amt}); }
+  else {
+    var planned = kind==='mon'?S.settings.mon : kind==='thu'?S.settings.thu : kind==='lump'?estLump() : amt;
+    var diff=amt-planned;
+    if(Math.abs(diff)>=1){ }
+  }
+  save(); renderAll();
+  var t=attackTarget();
+  document.getElementById('prescription').innerHTML=
+    '<div class="callout"><b>'+GBP(amt)+' recorded as received.</b> It is sitting in your cash \u2014 nothing has moved '+
+    'against any debt yet, because nothing has actually been paid.'+
+    (attack>0&&t ? ' The plan says put <b>'+GBP(attack)+'</b> toward '+t.nm+
+      '. Record it below once you have really sent it.'+
+      '<div class="brow"><button class="btn sm" onclick="quickPay(\''+t.id+'\','+attack.toFixed(2)+')">I paid '+GBP0(attack)+' to '+t.nm+'</button></div>'
+      : '')+
+    '</div>';
+  document.getElementById('pay-amt').value='';
+}
+function quickPay(id,amt){
+  var d=S.debts.filter(function(x){return x.id===id;})[0]; if(!d) return;
+  var v=prompt('How much did you actually pay to '+d.nm+'?', amt);
+  var a=parseFloat(v); if(isNaN(a)||a<=0) return;
+  txAdd({dir:'out',debt:id,amt:a});
+  renderAll();
+  document.getElementById('prescription').innerHTML=
+    '<div class="callout">'+(d.lumpOnly
+      ? '<b>'+GBP(a)+' set aside for '+d.nm+'.</b> The balance has not moved \u2014 it cannot until the whole '+
+        GBP0(d.bal)+' is there. '+GBP0(earmarkOf(id))+' of it now is.'
+      : '<b>'+GBP(a)+' paid off '+d.nm+'.</b> Cash down, balance down.')+'</div>';
+}
+function applyPay_legacy(kind,amt,attack){
+  attack=parseFloat(attack); var d=iso(today());
+  S.income.push({date:d,kind:kind,amt:amt,fee:(kind==='mon'||kind==='thu')?S.settings.fee:0});
+  if(kind==='extra'||kind==='other'){ var mk=monthKey(); S.drift[mk]=(S.drift[mk]||0)-amt; S.extras.push({date:d,amt:amt}); }
+  else {
+    // Regular paydays: only the difference from the planned figure is drift.
+    var planned = kind==='mon'?S.settings.mon : kind==='thu'?S.settings.thu : kind==='lump'?estLump() : amt;
+    var diff=amt-planned;
+    if(Math.abs(diff)>=1){ }
+  }
+  if(kind==='lump'){
+    openDebts().forEach(function(db){
+      if(db.min>0&&!minMet(db)){ var p=Math.min(db.min,db.bal); db.bal-=p; S.payments.push({date:d,debt:db.id,amt:p,kind:'min'}); }
+    });
+    var mk=monthKey();
+    if(!S.billsPaid[mk]) S.billsPaid[mk]=[];
+    fixedItems().forEach(function(i){ if(S.billsPaid[mk].indexOf(i[0])===-1) S.billsPaid[mk].push(i[0]); });
+  }
+  var t=attackTarget(), rem=attack;
+  while(t&&rem>0.005){
+    var p2=Math.min(rem,t.bal); t.bal-=p2; rem-=p2;
+    S.payments.push({date:d,debt:t.id,amt:p2,kind:'attack'});
+    t=attackTarget();
+  }
+  snapshot(); save(); renderAll();
+  document.getElementById('prescription').innerHTML='<div class="callout"><b>Recorded.</b> Balances, the spectrum and the burn rate are updated.</div>';
+  document.getElementById('pay-amt').value='';
+}
+function logRepay(){
+  var a=parseFloat(prompt('Repayment received (\u00A3):'));
+  if(isNaN(a)||a<=0)return;
+  S.dloan=Math.max(0,S.dloan-a);
+  S.income.push({date:iso(today()),kind:'repay',amt:a,fee:0});
+  S.cash=(S.cash||0)+a; snapshot(); save(); renderAll();
+}
+
+/* ── debts ── */
+function renderDebts(){
+  var q=S.debts.slice().sort(function(a,b){return a.order-b.order;});
+  var nextT=attackTarget();
+  var h='';
+  q.forEach(function(d){
+    var orig=S.origs[d.id]||d.bal;
+    var pct=orig>0?Math.min(100,100*(orig-d.bal)/orig):100;
+    var dead=d.bal<=0.005;
+    var cls='debt'+(dead?' done':'')+((nextT&&nextT.id===d.id)?' next':'');
+    var style=dead?'':'border-left-color:'+heat(d);
+    var tags='';
+    if(!dead){
+      if(nextT&&nextT.id===d.id) tags+='<span class="tag cool">next target</span>';
+      if(d.apr) tags+='<span class="tag '+heatTag(d)+'">'+d.apr+'% APR</span>';
+      if(d.frozen) tags+='<span class="tag ice">frozen</span>';
+      if(d.accrue) tags+='<span class="tag hot">grows '+GBP0(d.accrue)+'/mo</span>';
+      if(d.min>0) tags+='<span class="tag">min '+GBP0(d.min)+'</span>';
+      if(d.lumpOnly) tags+='<span class="tag ice">all-or-nothing</span>';
+    } else tags='<span class="tag cool">cleared'+(d.clearedOn?' '+d.clearedOn:'')+'</span>';
+    h+='<div class="'+cls+'" style="'+style+'" onclick="editDebt(\''+d.id+'\')">'+
+       '<div class="r1"><div class="nm">'+d.nm+'</div><div class="bal">'+GBP0(d.bal)+'</div></div>'+
+       '<div class="tags">'+tags+'</div>'+
+       (!dead&&d.meta?'<div class="note">'+d.meta+'</div>':'')+
+       (dead?'':(d.lumpOnly
+          ? '<div class="track"><i style="width:'+Math.min(100,100*earmarkOf(d.id)/Math.max(1,d.bal))+'%"></i></div>'+
+            '<div class="note" style="margin-top:6px"><b>'+GBP0(earmarkOf(d.id))+'</b> set aside of '+GBP0(d.bal)+
+            ' needed. Part payments do nothing here \u2014 the money stays yours until it covers the lot.'+
+            (canRedeem(d)?'</div><button class="btn sm" onclick="event.stopPropagation();redeem(\''+d.id+'\')">Pay it and get them back</button>':'</div>')
+          : '<div class="track"><i style="width:'+pct+'%"></i></div>'))+
+       '</div>';
+  });
+  var eq=earringEquity();
+  if(eq){
+    h=('<div class="callout warm" style="margin-bottom:12px"><b>'+GBP0(eq.equity)+' of equity left in the earrings.</b> '+
+       'They are worth about '+GBP0(eq.worth)+' against '+GBP0(eq.owed)+' owed, and the balance climbs '+GBP0(20)+' a month. '+
+       (eq.monthsLeft>0
+         ? 'At that rate you have <b>'+eq.monthsLeft+' month'+(eq.monthsLeft===1?'':'s')+'</b> before the debt is worth more than the jewellery.'
+         : 'The debt has already passed what they are worth \u2014 redeeming now costs more than replacing them.')+
+       '</div>')+h;
+  }
+  document.getElementById('debtlist').innerHTML=h;
+  var sel=document.getElementById('pay-debt'); sel.innerHTML='';
+  openDebts().sort(function(a,b){return a.order-b.order;}).forEach(function(d){
+    var o=document.createElement('option'); o.value=d.id; o.textContent=d.nm+' \u2014 '+GBP0(d.bal); sel.appendChild(o);
+  });
+  document.getElementById('dloan-amt').textContent=GBP(S.dloan);
+  var mh='';
+  openDebts().sort(function(a,b){return a.order-b.order;}).forEach(function(d){
+    if(d.min>0) mh+='<div class="stat"><span class="n">'+d.nm+'</span><span class="v">'+GBP0(d.min)+'</span></div>';
+  });
+  mh+='<div class="stat"><span class="n"><b>Total each month</b></span><span class="v warm">'+GBP(minsTotal())+'</span></div>';
+  var ml=document.getElementById('minslist'); if(ml) ml.innerHTML=mh;
+}
+function payDebt(){
+  var id=document.getElementById('pay-debt').value;
+  var a=parseFloat(document.getElementById('pay-debt-amt').value);
+  if(!id||isNaN(a)||a<=0)return;
+  txAdd({dir:'out',debt:id,amt:a});
+  renderAll();
+  document.getElementById('pay-debt-amt').value='';
+}
+
+/* ── weed ── */
+function curOunce(){
+  for(var i=S.weed.ounces.length-1;i>=0;i--){ if(!S.weed.ounces[i].finished) return S.weed.ounces[i]; }
+  return null;
+}
+function lastFinished(){
+  var os=S.weed.ounces.filter(function(o){return o.finished;});
+  return os.length?os[os.length-1]:null;
+}
+function gateClean(){ var lf=lastFinished(); return !lf||!lf.hot; }
+function buy(kind){
+  var d=iso(today());
+  if(kind==='drip'){
+    S.weed.ounces.push({date:d,g:3.5,cost:30,kind:'drip',portions:null,finished:false,onP:1});
+    S.spend.push({date:d,cat:'Weed',amt:30});
+  } else {
+    var clean=gateClean();
+    var cost=clean?S.settings.weedBulk.cost:Math.round(S.settings.weedDrip*S.settings.weedBulk.g);
+    var o={date:d,g:S.settings.weedBulk.g,cost:cost,kind:clean?'bulk':'bulk-hot',portions:[],finished:false,onP:1,portioned:false};
+    for(var i=0;i<8;i++) o.portions.push({n:i+1,opens:iso(addDays(new Date(d+'T12:00:00'),i*S.settings.rationDays)),used:false});
+    S.weed.ounces.push(o);
+    S.spend.push({date:d,cat:'Weed',amt:cost});
+  }
+  save(); renderWeed(); renderToday(); renderHero();
+}
+function confirmPortioned(){ var o=curOunce(); if(o&&o.portions){o.portioned=true;save();renderWeed();} }
+function expectedPortion(o){
+  return Math.min(8,Math.floor(daysBetween(new Date(o.date+'T12:00:00'),today())/S.settings.rationDays)+1);
+}
+function checkin(n){
+  var o=curOunce(); if(!o)return;
+  o.onP=n;
+  if(o.portions) for(var i=0;i<o.portions.length;i++) o.portions[i].used=(i+1)<n;
+  if(n>=9){
+    o.finished=true; o.finishedOn=iso(today());
+    var span=daysBetween(new Date(o.date+'T12:00:00'),new Date(o.finishedOn+'T12:00:00'));
+    o.spanDays=span;
+    o.hot = o.portions ? (span < 8*S.settings.rationDays*0.8) : false;
+  }
+  save(); renderWeed();
+}
+function weekMonday(d){ var x=new Date(d); var day=(x.getDay()+6)%7; x.setDate(x.getDate()-day); x.setHours(12,0,0,0); return x; }
+function dryWeekKey(){ return iso(weekMonday(today())); }
+function toggleDry(dayIso){
+  var wk=dryWeekKey();
+  if(!S.weed.dry[wk]) S.weed.dry[wk]={plan:[],done:[]};
+  var w=S.weed.dry[wk];
+  if(w.plan.indexOf(dayIso)===-1){ if(w.plan.length>=2) w.plan.shift(); w.plan.push(dayIso); }
+  else if(w.done.indexOf(dayIso)===-1){ w.done.push(dayIso); }
+  else { w.done=w.done.filter(function(x){return x!==dayIso;}); w.plan=w.plan.filter(function(x){return x!==dayIso;}); }
+  save(); renderWeed(); renderToday();
+}
+function dryStreak(){
+  var wk=addDays(weekMonday(today()),-7), st=0;
+  while(true){
+    var w=S.weed.dry[iso(wk)];
+    if(w&&w.plan.length>=2&&w.done.length>=2){ st++; wk=addDays(wk,-7); } else break;
+  }
+  return st;
+}
+function renderWeed(){
+  var o=curOunce(), st='';
+  var pc=document.getElementById('portion-confirm');
+  if(!o){
+    st='<div class="card"><div class="stat"><span class="n">Bulk price</span><span class="v cool">\u00A35.89/g</span></div>'+
+       '<div class="stat"><span class="n">Drip price</span><span class="v warm">\u00A38.57/g</span></div>'+
+       '<div class="stat"><span class="n">Same grams, saved</span><span class="v cool">~\u00A380/mo</span></div>'+
+       '<div class="tiny">Wholesale status: '+(gateClean()?'<b style="color:var(--cool)">clean \u2014 unlocked</b>':'<b style="color:var(--hot)">locked \u2014 one clean cycle restores it</b>')+'</div></div>';
+    document.getElementById('weed-ports').innerHTML='';
+    document.getElementById('weed-checkin').innerHTML='';
+    pc.innerHTML='';
+  } else if(o.portions){
+    var exp=expectedPortion(o), drift=o.onP-exp, ppg=o.cost/o.g;
+    var dtxt = drift>0 ? 'Running '+drift+' portion'+(drift>1?'s':'')+' ahead of ration. At this pace the ounce ends early and the real price per gram climbs.'
+             : drift<0 ? 'Running behind ration \u2014 the dry days are stretching the ounce. That is the saving working.'
+             : 'On ration exactly.';
+    st='<div class="card'+(drift>0?'':' glow')+'">'+
+       '<div class="stat"><span class="n">Active ounce</span><span class="v">'+o.g+'g \u00b7 '+GBP0(o.cost)+'</span></div>'+
+       '<div class="stat"><span class="n">Real price</span><span class="v '+(ppg<7?'cool':'warm')+'">\u00A3'+ppg.toFixed(2)+'/g</span></div>'+
+       '<div class="stat"><span class="n">On portion / expected</span><span class="v '+(drift>0?'hot':'cool')+'">P'+Math.min(o.onP,8)+' / P'+exp+'</span></div>'+
+       '<div class="tiny">'+dtxt+'</div></div>';
+    pc.innerHTML = o.portioned ? '' :
+      '<div class="callout warm">Bag it <b>now</b>: split into 8 \u00d7 3.5g with the dates below. Wholesale economics only hold on portioned stock.</div>'+
+      '<button class="btn" onclick="confirmPortioned()">Done \u2014 split into 8</button>';
+    var ph='<div class="ports">';
+    o.portions.forEach(function(p){
+      var cls=p.used?'used':(p.opens<=iso(today())?'open':'');
+      ph+='<div class="port '+cls+'"><div class="p">P'+p.n+'</div><div class="d">'+p.opens.slice(5).replace('-','/')+'</div></div>';
+    });
+    document.getElementById('weed-ports').innerHTML=ph+'</div>';
+    var ch='<label>Which portion are you on?</label><div class="opts">';
+    for(var i=1;i<=8;i++){ ch+='<button onclick="checkin('+i+')" class="'+(o.onP===i?'on':'')+'">P'+i+'</button>'; if(i===4) ch+='</div><div class="opts">'; }
+    ch+='</div><button class="btn ghost sm" onclick="checkin(9)">Ounce finished</button>';
+    document.getElementById('weed-checkin').innerHTML=ch;
+  } else {
+    st='<div class="card"><div class="stat"><span class="n">Drip purchase</span><span class="v warm">\u00A3'+(o.cost/o.g).toFixed(2)+'/g</span></div>'+
+       '<div class="tiny">Bulk runs \u00A35.89/g when the gate is clean.</div></div>';
+    document.getElementById('weed-ports').innerHTML='';
+    document.getElementById('weed-checkin').innerHTML='<button class="btn ghost sm" onclick="checkin(9)">Finished it</button>';
+    pc.innerHTML='';
+  }
+  document.getElementById('weed-status').innerHTML=st;
+  document.getElementById('bulkbtn').textContent = gateClean()?'Bulk \u00b7 \u00A3165 / 28g':'Bulk locked \u00b7 drip price';
+  var wk=weekMonday(today()), w=S.weed.dry[dryWeekKey()]||{plan:[],done:[]};
+  var names=['Mo','Tu','We','Th','Fr','Sa','Su'], dh='<div class="week">';
+  for(var j=0;j<7;j++){
+    var dd=addDays(wk,j), di=iso(dd);
+    var cls=w.done.indexOf(di)>-1?'done':(w.plan.indexOf(di)>-1?'dry':'');
+    dh+='<div class="day '+cls+'" onclick="toggleDry(\''+di+'\')"><div class="dn">'+names[j]+'</div>'+dd.getDate()+'</div>';
+  }
+  document.getElementById('dryweek').innerHTML=dh+'</div>';
+  var mo=iso(today()).slice(0,7);
+  var spent=spendIn('Weed',mo);
+  var thisW=(w.plan.length>=2&&w.done.length>=2);
+  document.getElementById('weed-econ').innerHTML=
+    '<div class="sec"><span class="lab">This month</span></div><div class="card">'+
+    '<div class="stat"><span class="n">Spent on supply</span><span class="v">'+GBP(spent)+'</span></div>'+
+    '<div class="stat"><span class="n">Drip-price equivalent</span><span class="v warm">'+GBP(spent>0?spent*(8.57/5.89):0)+'</span></div>'+
+    '<div class="stat"><span class="n">Dry-week streak</span><span class="v cool">'+dryStreak()+(thisW?' \u00b7 this week \u2713':'')+'</span></div></div>';
+}
+
+/* ── spend / today ── */
+function logSpend(){
+  var c=document.querySelector('#spendcats button.on');
+  var a=parseFloat(document.getElementById('spend-amt').value);
+  if(!c||isNaN(a)||a<=0)return;
+  var cat=c.getAttribute('data-c');
+  var before=weekEnv();
+  S.spend.push({date:iso(today()),cat:cat,amt:a});
+  txAdd({dir:'out',cat:cat,amt:a});
+  save(); renderToday();
+  document.getElementById('spend-amt').value='';
+  c.classList.remove('on');
+  var resp=document.getElementById('spend-resp');
+  if(cat==='Misc'){
+    var mb=miscBudget(), spent=S.spend.filter(function(s){return s.cat==='Misc'&&s.date.slice(0,7)===monthKey();})
+                                      .reduce(function(x,y){return x+y.amt;},0);
+    resp.innerHTML = spent<=mb
+      ? '<div class="callout">Unplanned spend happens \u2014 that is what the '+GBP0(mb)+' misc line is for. '+
+        '<b>'+GBP0(mb-spent)+' still ahead</b> on it this month.</div>'
+      : '<div class="callout warm">That is <b>'+GBP(spent-mb)+'</b> past the misc line. '+
+        'It comes off the attack \u2014 about <b>'+dayCost(spent-mb).toFixed(1)+' days</b> later to debt-free.'+
+        '<div class="brow"><button class="btn sm" onclick="acceptDrift('+(spent-mb).toFixed(2)+')">Accept the days</button>'+
+        '<button class="btn ghost sm" onclick="absorbNext('+(spent-mb).toFixed(2)+')">Take it from next week</button></div></div>';
+    return;
+  }
+  var w=weekEnv();
+  if(w.over>0){
+    var newOver=w.over-Math.max(0,before.spent-before.planned);
+    var amt=Math.min(a,w.over);
+    resp.innerHTML='<div class="callout warm">You are <b>'+GBP(w.over)+'</b> past this week\'s cash. '+
+      'Not a failure \u2014 but it has to come from somewhere, and the only somewhere is the payoff. '+
+      'Pick which:'+
+      '<div class="brow"><button class="btn sm" onclick="acceptDrift('+amt.toFixed(2)+')">Accept \u00b7 '+dayCost(amt).toFixed(1)+'d later</button>'+
+      '<button class="btn ghost sm" onclick="absorbNext('+amt.toFixed(2)+')">Tighten next week</button></div></div>';
+  } else if(w.left<12){
+    resp.innerHTML='<div class="callout"><b>'+GBP(w.left)+'</b> left for the rest of the week. Tight, not broken \u2014 come in under and it buys days back.</div>';
+  } else resp.innerHTML='';
+}
+function renderToday(){
+  var np=nextPayEvent(), dd=daysBetween(today(),np.d);
+  document.getElementById('t-nextpay').textContent=np.t+(dd<=0?' \u00b7 today':' \u00b7 '+dd+'d');
+  var w=weekEnv();
+  var el=document.getElementById('t-env');
+  var carried=(S.carry&&S.carry.wk===iso(weekMonday(today())))?S.carry.amt:0;
+  el.textContent = (w.over>0 ? '\u2212'+GBP(w.over)+' over' : GBP(w.left)+' left')+(carried>0?' \u00b7 carried':'');
+  el.className='v '+(w.over>0?'hot':w.left>30?'cool':'warm');
+  var pw=progWords();
+  var de=document.getElementById('t-drift');
+  de.textContent = pw.days? pw.txt+' \u00b7 '+pw.days : pw.txt;
+  de.className='v '+pw.cls;
+  de.style.fontSize='13.5px';
+  var ci=(S.tx||[]).filter(function(t){return t.dir==='in'&&t.date.slice(0,7)===monthKey();}).reduce(function(a,b){return a+b.amt;},0);
+  var co=(S.tx||[]).filter(function(t){return t.dir==='out'&&t.date.slice(0,7)===monthKey();}).reduce(function(a,b){return a+b.amt;},0);
+  var ce=document.getElementById('t-cash');
+  if(ce){ ce.textContent=GBP(S.cash||0); ce.className='v '+((S.cash||0)>0?'cool':'hot'); }
+  var fe=document.getElementById('t-flow');
+  if(fe){ fe.textContent=GBP0(ci)+' in \u00b7 '+GBP0(co)+' out'; fe.className='v'; fe.style.fontSize='14px'; }
+  document.getElementById('t-bleed').textContent=GBP(bleedPerDay())+'/day';
+  document.getElementById('t-dry').textContent=dryStreak()+' weeks';
+  var td=iso(today()), ts=S.spend.filter(function(s){return s.date===td;});
+  document.getElementById('today-spent').textContent = ts.length
+    ? 'Today: '+ts.map(function(s){return s.cat+' '+GBP(s.amt);}).join('  \u00b7  ')
+    : 'Nothing recorded today.';
+  var rc=recon(), rh='', prog=monthProgress();
+  rh+='<div class="stat"><span class="n"><b>Plan vs actual</b><br><span style="font-size:11px;color:var(--faint)">'+
+      (S.startDate&&S.startDate.slice(0,7)===monthKey()
+        ? 'measured from '+S.startDate.slice(8)+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+monthKey().slice(5)-1]
+        : Math.round(prog*100)+'% through the month')+'</span></span><span class="v" style="font-size:12px;color:var(--faint)">actual / expected by now</span></div>';
+  rc.rows.forEach(function(r){
+    var due=r[1]*prog, d=r[2]-due, mark='';
+    if(r[2]<=0) mark=' <span style="color:var(--faint);font-size:12px">nothing logged</span>';
+    else if(d>0.5) mark=' <span style="color:var(--hot);font-size:12px">'+GBP0(d)+' over</span>';
+    else if(d<-0.5) mark=' <span style="color:var(--cool);font-size:12px">'+GBP0(-d)+' under</span>';
+    rh+='<div class="stat"><span class="n">'+r[0]+'</span><span class="v" style="font-size:14px">'+
+        GBP0(r[2])+' <span style="color:var(--faint);font-size:12px">/ '+GBP0(due)+'</span>'+mark+'</span></div>';
+  });
+  var inAct=0, inPlan=0;
+  (S.tx||[]).forEach(function(t){ if(t.dir==='in'&&t.date.slice(0,7)===monthKey()){ inAct+=t.amt; inPlan+=plannedFor(t.kind); } });
+  rh+='<div class="stat"><span class="n">Income received</span><span class="v '+(inAct>=inPlan?'cool':'hot')+'" style="font-size:14px">'+
+      GBP0(inAct)+' <span style="color:var(--faint);font-size:12px">/ '+GBP0(inPlan)+' planned</span></span></div>';
+  var outAct=(S.tx||[]).filter(function(t){return t.dir==='out'&&t.date.slice(0,7)===monthKey();})
+                       .reduce(function(a,b){return a+b.amt;},0);
+  var toDebt=(S.tx||[]).filter(function(t){return t.dir==='out'&&t.debt&&t.date.slice(0,7)===monthKey();})
+                       .reduce(function(a,b){return a+b.amt;},0);
+  rh+='<div class="stat"><span class="n">Money out</span><span class="v hot" style="font-size:14px">'+GBP0(outAct)+
+      ' <span style="color:var(--faint);font-size:12px">'+GBP0(toDebt)+' of it at debt</span></span></div>';
+  rh+='<div class="stat"><span class="n"><b>In minus out</b></span><span class="v '+((inAct-outAct)>=0?'cool':'hot')+
+      '" style="font-size:16px">'+GBP0(inAct-outAct)+'</span></div>';
+  var pw=progWords(), pp=pw.p;
+  rh+='<div class="stat"><span class="n"><b>Against plan \u00b7 debt</b><br><span style="font-size:11px;color:var(--faint)">'+
+      GBP0(pp.real)+' paid off'+(pp.setAside>0?', '+GBP0(pp.setAside)+' set aside':'')+
+      (pp.grew>0?', '+GBP0(pp.grew)+' growth':'')+(pp.added>0?', '+GBP0(pp.added)+' new debt':'')+
+      ' \u00b7 '+GBP0(pp.expected)+' expected by now</span></span>'+
+      '<span class="v '+pw.cls+'" style="font-size:15px">'+pw.txt+'</span></div>';
+  if(pw.days) rh+='<div class="stat"><span class="n">Effect on the finish date</span><span class="v '+pw.cls+
+      '" style="font-size:14px">'+pw.days+'</span></div>';
+  rh+='<div class="tiny">Misc line is '+GBP0(miscBudget())+' this month'+
+      (miscBudget()>S.settings.misc?' \u2014 raised from '+GBP0(S.settings.misc)+' because that is what you have actually been spending.':'.')+'</div>';
+  document.getElementById('reconcard').innerHTML=rh;
+}
+
+/* ── plan ── */
+function debtBal(id){ var d=S.debts.filter(function(x){return x.id===id;})[0]; return d?d.bal:0; }
+function tierNow(){
+  if(!S.debts.length) return 0;
+  // T0 is the small, fast kills — anything that grows, plus the sub-£150 stragglers.
+  var t0=S.debts.some(function(d){ return d.bal>0.005 && !d.frozen && (d.accrue>0 || d.bal<150); });
+  if(t0)return 0;
+  if(liveDebts().length)return 1;
+  if(S.pots.ps5<700||openDebts().some(function(d){return d.frozen;}))return 2;
+  if(S.pots.buffer<1000)return 3;
+  return 4;
+}
+function project(){
+  if(!S.debts.length) return {etas:{},months:0};
+  var sim=S.debts.map(function(d){return {id:d.id,bal:d.bal,min:d.min||0,apr:d.apr||0,accrue:d.accrue||0,frozen:!!d.frozen,order:d.order};});
+  var fx=S.settings.fixed, out={}, m=0;
+  while(m<80){
+    if(!sim.some(function(d){return !d.frozen&&d.bal>0.005;}))break;
+    m++;
+    var mins=sim.reduce(function(a,b){return a+(b.bal>0.005?b.min:0);},0);
+    var ray=sim.filter(function(d){return d.id==='raylo';})[0];
+    var fxT=fixedSum(!!(ray&&ray.bal>0.005));
+    var pr=payRate();
+    var attack=Math.max(0, pr.src==='measured' ? pr.v-mins
+      : S.settings.income-fxT-S.settings.food-S.settings.travel-165-miscBudget()-mins);
+    sim.forEach(function(d){
+      if(d.bal<=0.005)return;
+      if(d.apr) d.bal*=(1+d.apr/1200);
+      if(d.accrue) d.bal+=d.accrue;
+      if(d.min){ d.bal=Math.max(0,d.bal-d.min); if(d.bal<=0.005&&!out[d.id])out[d.id]=m; }
+    });
+    var t=sim.filter(function(d){return !d.frozen&&d.bal>0.005;}).sort(function(a,b){return a.order-b.order;})[0];
+    var rem=attack;
+    while(t&&rem>0.005){
+      var p=Math.min(rem,t.bal); t.bal-=p; rem-=p;
+      if(t.bal<=0.005&&!out[t.id])out[t.id]=m;
+      t=sim.filter(function(d){return !d.frozen&&d.bal>0.005;}).sort(function(a,b){return a.order-b.order;})[0];
+    }
+  }
+  return {etas:out,months:m};
+}
+function renderPlan(){
+  var tn=tierNow();
+  var tiers=[
+    ['T0 \u00b7 Stabilise','Kill the pawn, your friend, and Raylo. The earrings come home \u2014 a \u00A3300 asset for \u00A3160.'],
+    ['T1 \u00b7 Clear','Avalanche the interest: Capital One, Creation, Tesco, PayPal. Everything else sits at minimum.'],
+    ['T2 \u00b7 Milestone','Fill the PS5 Pro pot and buy it outright. From spring 2027, written full-and-final offers on the aged defaults.'],
+    ['T3 \u00b7 Buffer','Build \u00A31,000. It ends early-payment fees for good and funds bulk buying permanently.'],
+    ['T4 \u00b7 Build','The scoreboard changes: savings rate and net worth. Never broke again \u2014 and never flat either.']
+  ];
+  var h='';
+  tiers.forEach(function(t,i){
+    h+='<div class="tier'+(i===tn?' cur':(i<tn?' done':''))+'"><div class="dot"></div><div><div class="h">'+t[0]+'</div><div class="o">'+t[1]+'</div></div></div>';
+  });
+  document.getElementById('tierlist').innerHTML=h;
+  var pr=project();
+  document.getElementById('cd-months').textContent=pr.months+' months';
+  document.getElementById('cd-shifts').textContent='~'+Math.round(pr.months*4.33*3)+' shifts';
+  var rt=payRate(), oD=obsDebtRate();
+  var rc=document.getElementById('cd-rate');
+  if(rc){ rc.textContent=GBP0(rt.v)+'/mo \u00b7 '+rt.src; rc.className='v '+(rt.src==='measured'?'ice':''); rc.style.fontSize='14px'; }
+  var mh=document.getElementById('cd-modes');
+  if(mh){
+    if(oD===null){
+      mh.innerHTML='<div class="tiny">Using the planned '+GBP0(plannedDebtPay())+'/mo. Once a full month of payments is logged '+
+        'this switches to what you actually clear, and every date moves with it.</div>';
+    } else {
+      mh.innerHTML='<div class="opts" style="grid-template-columns:repeat(2,1fr);margin-top:8px">'+
+        '<button onclick="setRateMode(\'obs\')" class="'+((S.rateMode||'obs')==='obs'?'on':'')+'">Measured '+GBP0(oD)+'</button>'+
+        '<button onclick="setRateMode(\'plan\')" class="'+(S.rateMode==='plan'?'on':'')+'">Plan '+GBP0(plannedDebtPay())+'</button></div>'+
+        '<div class="tiny" style="margin-top:6px">'+(oD>=plannedDebtPay()
+          ? 'You are clearing more than the plan assumed, so the dates are pulling in.'
+          : 'You are clearing less than the plan assumed, so the dates have moved out. That is the honest picture, not a penalty.')+'</div>';
+    }
+  }
+  var ph='';
+  S.debts.slice().sort(function(a,b){return a.order-b.order;}).forEach(function(d){
+    var dead=d.bal<=0.005, eta=pr.etas[d.id];
+    var v=dead?'cleared':(d.frozen?'token-held':(eta?'month '+eta:'\u2014'));
+    ph+='<div class="stat"><span class="n">'+d.nm+'</span><span class="v '+(dead?'cool':d.frozen?'ice':'')+'" style="font-size:13px">'+v+'</span></div>';
+  });
+  document.getElementById('projection').innerHTML=ph;
+  var dh='', keys=driftMonths().slice(-4);
+  if(!keys.length) dh='<div class="stat"><span class="n">Nothing off plan yet</span><span class="v cool">on plan</span></div>';
+  var mnames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  keys.forEach(function(k){
+    var w=progWords(k);
+    var nm=mnames[parseInt(k.slice(5),10)-1]+' '+k.slice(2,4);
+    dh+='<div class="stat"><span class="n">'+nm+'</span><span class="v '+w.cls+'" style="font-size:13.5px">'+
+        w.txt+(w.days?' \u00b7 '+w.days:'')+'</span></div>';
+  });
+  var tot=driftMonths().reduce(function(a,k){return a+debtProgress(k).vs;},0);
+  var tw=(Math.abs(tot)<1)?{cls:'',txt:'on plan'}:(tot>0?{cls:'cool',txt:GBP0(tot)+' ahead'}:{cls:'hot',txt:GBP0(-tot)+' behind'});
+  dh+='<div class="stat"><span class="n"><b>Running total</b></span><span class="v '+tw.cls+'">'+tw.txt+'</span></div>';
+  dh+='<div class="tiny">This is debt cleared against what the plan expected by that point. Payments count toward it; '+
+      'new debt and the pawn growing count against it. Money set aside for an all-or-nothing debt does not count '+
+      'until it actually clears the thing. How your net worth moves over time is a separate question \u2014 that is the Worth tab.</div>';
+  document.getElementById('driftcard').innerHTML=dh;
+  var mb=miscBudget();
+  document.getElementById('cd-months').textContent=pr.months+' months';
+  var pots=[['PS5 Pro',S.pots.ps5,700],['Buffer',S.pots.buffer,1000],['Settlement',S.pots.settle,900]];
+  var hp='';
+  pots.forEach(function(p){
+    var pct=Math.min(100,100*p[1]/p[2]);
+    hp+='<div class="debt" style="border-left-color:var(--ice)"><div class="r1"><div class="nm">'+p[0]+'</div>'+
+        '<div class="bal">'+GBP0(p[1])+' <span style="color:var(--faint);font-size:13px">/ '+GBP0(p[2])+'</span></div></div>'+
+        '<div class="track"><i style="width:'+pct+'%"></i></div></div>';
+  });
+  document.getElementById('pots').innerHTML=hp;
+}
+function addPot(k){
+  var a=parseFloat(prompt('Add to the '+k+' pot (\u00A3):'));
+  if(isNaN(a)||a<=0)return;
+  S.pots[k]=(S.pots[k]||0)+a; snapshot(); save(); renderPlan(); renderHero(); renderWorth();
+}
+
+
+
+
+/* The pawn is the one debt that grows on its own. Accrue it forward on load so the
+   balance on screen is always what is actually owed today, not what it was when logged. */
+function accrueDebts(){
+  var now=today();
+  if(!S.lastAccrue){ S.lastAccrue=iso(now); save(); return; }
+  var last=new Date(S.lastAccrue+'T12:00:00');
+  var months=(now.getFullYear()-last.getFullYear())*12+(now.getMonth()-last.getMonth());
+  if(months<1) return;
+  S.debts.forEach(function(d){
+    if(d.accrue&&d.bal>0.005){
+      d.bal+=d.accrue*months;
+      if(S.origs[d.id]!==undefined) S.origs[d.id]+=d.accrue*months;   // keep the progress bar honest
+    }
+  });
+  S.lastAccrue=iso(now); save();
+}
+function earringEquity(){
+  var p=S.debts.filter(function(d){return d.id==='pawn';})[0];
+  if(!p||p.bal<=0.005) return null;
+  return {owed:p.bal, worth:S.earringValue, equity:S.earringValue-p.bal,
+          monthsLeft:Math.max(0,Math.floor((S.earringValue-p.bal)/(p.accrue||20)))};
+}
+
+/* ── MEASURED RATE ─────────────────────────────────────────────
+   The plan is an assumption; the snapshots are evidence. These read the actual
+   month-to-month change in net worth, and the trend in that change, so the
+   projection can be driven by what is happening rather than what was budgeted.
+   Trend is deliberately damped — an improving rate is real information, but
+   extrapolating an acceleration indefinitely is how projections turn to fiction. */
+/* Income is measured, not assumed. Driving is roughly flat; performance fees
+   should grow. So the forecast reads actual logged income month by month and
+   carries its trend forward — a straight-line continuation of what is happening,
+   with no compounding and no invented ceiling. The implied income is shown so
+   the assumption is always visible and checkable. */
+function incomeByMonth(){
+  var m={};
+  (S.tx||[]).forEach(function(t){
+    if(t.dir!=='in'||t.kind==='repay') return;
+    var k=t.date.slice(0,7);
+    m[k]=(m[k]||0)+t.amt;
+  });
+  return m;
+}
+function incomeMonths(){
+  var m=incomeByMonth(), ks=Object.keys(m).sort();
+  var cur=monthKey();
+  return ks.filter(function(k){return k!==cur;});   // drop the part-month in progress
+}
+function obsIncome(){
+  var m=incomeByMonth(), ks=incomeMonths();
+  if(!ks.length) return null;
+  var w=ks.slice(-6);
+  return w.reduce(function(a,k){return a+m[k];},0)/w.length;
+}
+function incomeTrend(){
+  var m=incomeByMonth(), ks=incomeMonths();
+  if(ks.length<3) return null;
+  var v=ks.map(function(k){return m[k];});
+  var n=v.length, mx=(n-1)/2, my=v.reduce(function(a,b){return a+b;},0)/n, num=0, den=0;
+  for(var i=0;i<n;i++){ num+=(i-mx)*(v[i]-my); den+=(i-mx)*(i-mx); }
+  return den? num/den : 0;
+}
+function incomeAt(m,mode){
+  var base=(mode==='plan')?S.settings.income:(obsIncome()!==null?obsIncome():S.settings.income);
+  if(mode!=='trend') return base;
+  var t=incomeTrend();
+  return Math.max(0, base+(t||0)*m);
+}
+function snapKeys(){ return Object.keys(S.snaps).sort(); }
+function snapDeltas(){
+  var k=snapKeys(), d=[];
+  for(var i=1;i<k.length;i++) d.push(S.snaps[k[i]]-S.snaps[k[i-1]]);
+  return d;
+}
+function planRate(){ return minsTotal()+attackPerMonth(); }
+function obsRate(){
+  var d=snapDeltas();
+  if(d.length<1) return null;
+  var w=d.slice(-6);
+  return w.reduce(function(a,b){return a+b;},0)/w.length;
+}
+function rateTrend(){
+  var d=snapDeltas();
+  if(d.length<3) return null;
+  var n=d.length, mx=(n-1)/2, my=d.reduce(function(a,b){return a+b;},0)/n, num=0, den=0;
+  for(var i=0;i<n;i++){ num+=(i-mx)*(d[i]-my); den+=(i-mx)*(i-mx); }
+  return den? num/den : 0;
+}
+function rateConfidence(){
+  var n=snapDeltas().length;
+  if(n<1) return {n:n,txt:'no history yet \u2014 running on the plan',cls:''};
+  if(n<3) return {n:n,txt:n+' month'+(n>1?'s':'')+' recorded \u2014 too few to read a trend',cls:''};
+  if(n<6) return {n:n,txt:n+' months recorded \u2014 trend is indicative, not settled',cls:''};
+  return {n:n,txt:n+' months recorded \u2014 enough to take the trend seriously',cls:'cool'};
+}
+function modeScale(){
+  var o=obsRate(), p=planRate();
+  if(o===null||p<=0) return 1;
+  return Math.max(0.2,Math.min(3,o/p));      // clamp so one odd month cannot distort the path
+}
+
+/* ── POSITION ──────────────────────────────────────────────────
+   Liquid = what is actually in hand, less what this month still has to cover.
+   Net worth = everything owned or owed to you, minus everything owed out. The
+   earrings only count once redeemed; the PS5 is consumption and never counts. */
+function potsTotal(){ var p=S.pots||{}; return (p.ps5||0)+(p.buffer||0)+(p.settle||0); }
+function committed(){ return minsOutstanding()+billsOutstanding()+weedOutstanding(); }
+function liquid(){
+  var cash=S.cash||0, em=earmarkTotal();
+  return {cash:cash, earmarked:em, committed:committed(), free:cash-em-committed()};
+}
+function assetsNow(){
+  var pawn=S.debts.filter(function(d){return d.id==='pawn';})[0];
+  var earrings=(pawn&&pawn.bal<=0.005)?300:0;
+  return {cash:S.cash||0, pots:potsTotal(), earrings:earrings, dloan:S.dloan||0,
+          total:(S.cash||0)+potsTotal()+earrings+(S.dloan||0)};
+}
+function liabilitiesNow(){ return S.debts.reduce(function(a,b){return a+b.bal;},0); }
+function netWorth(){ return assetsNow().total-liabilitiesNow(); }
+function snapshot(){
+  var k=monthKey();
+  S.snaps[k]=Math.round(netWorth());
+  save();
+}
+/* Forward path: clear live debt, settle the frozen books at the assumed rate,
+   then the same monthly surplus becomes savings instead of repayment. */
+function worthPath(months,mode){
+  if(!S.debts.length){ var e=[]; for(var q=1;q<=months;q++) e.push({m:q,nw:Math.round(S.cash||0),debt:0,savings:0}); return {series:e,ms:{}}; }
+  mode=mode||S.wmode||'plan';
+  var sim=S.debts.map(function(d){return {id:d.id,bal:d.bal,min:d.min||0,apr:d.apr||0,accrue:d.accrue||0,frozen:!!d.frozen,order:d.order};});
+  var cash=S.cash||0, pots=potsTotal(), dl=S.dloan||0, savings=0;
+  var ps5Bought=(S.pots.ps5||0)>=S.ps5Target;
+  var out=[], milestones={};
+  for(var m=1;m<=months;m++){
+    var mins=sim.reduce(function(a,b){return a+(b.bal>0.005?b.min:0);},0);
+    var ray=sim.filter(function(d){return d.id==='raylo';})[0];
+    var fxT=fixedSum(!!(ray&&ray.bal>0.005));
+    var inc=incomeAt(m,mode);
+    var pr=payRate(), budget;
+    if(pr.src==='measured'){
+      // Drive the path off what is really being cleared each month, scaled by however
+      // income is projected to move, so the two stay consistent.
+      var baseInc=obsIncome()||S.settings.income;
+      var sc=baseInc>0? inc/baseInc : 1;
+      budget=Math.max(0, pr.v*sc-mins);
+    } else {
+      budget=Math.max(0, inc-fxT-S.settings.food-S.settings.travel-165-miscBudget()-mins);
+    }
+    sim.forEach(function(d){
+      if(d.bal<=0.005)return;
+      if(d.apr) d.bal*=(1+d.apr/1200);
+      if(d.accrue) d.bal+=d.accrue;
+      if(d.min) d.bal=Math.max(0,d.bal-d.min);
+    });
+    var live=sim.filter(function(d){return !d.frozen&&d.bal>0.005;}).sort(function(a,b){return a.order-b.order;});
+    var rem=budget;
+    while(live.length&&rem>0.005){
+      var t=live[0], p=Math.min(rem,t.bal); t.bal-=p; rem-=p;
+      live=sim.filter(function(d){return !d.frozen&&d.bal>0.005;}).sort(function(a,b){return a.order-b.order;});
+    }
+    if(!live.length){
+      var froz=sim.filter(function(d){return d.frozen&&d.bal>0.005;});
+      if(froz.length){
+        pots+=rem; rem=0;
+        var need=froz.reduce(function(a,b){return a+b.bal;},0)*S.settleRate;
+        if(pots>=need){ pots-=need; froz.forEach(function(d){d.bal=0;}); }
+      } else {
+        // Milestone first: the console is consumption, so that money leaves and
+        // stops counting as wealth the moment the pot covers it.
+        if(!ps5Bought){
+          pots+=rem; rem=0;
+          if(pots>=S.ps5Target){ pots-=S.ps5Target; ps5Bought=true; if(!milestones.ps5) milestones.ps5=m; }
+        } else {
+          savings=savings*(1+(S.savGrowth||0)/1200)+rem; rem=0;
+        }
+      }
+    }
+    var pawn=sim.filter(function(d){return d.id==='pawn';})[0];
+    var earr=(pawn&&pawn.bal<=0.005)?300:0;
+    var debt=sim.reduce(function(a,b){return a+b.bal;},0);
+    var nw=cash+pots+savings+earr+dl-debt;
+    out.push({m:m,nw:Math.round(nw),debt:Math.round(debt),savings:Math.round(savings+pots)});
+    [[0,'zero'],[1000,'k1'],[5000,'k5'],[10000,'k10']].forEach(function(t2){
+      if(!milestones[t2[1]]&&nw>=t2[0]) milestones[t2[1]]=m;
+    });
+    if(!milestones.debtfree&&debt<=0.005) milestones.debtfree=m;
+  }
+  return {series:out,ms:milestones};
+}
+function setWMode(m){ S.wmode=m; save(); renderWorth(); }
+function setSavGrowth(g){ S.savGrowth=g; save(); renderWorth(); }
+function setSettleRate(s){ S.settleRate=s; save(); renderWorth(); renderPlan(); }
+function monthName(offset){
+  var d=new Date(); d.setDate(1); d.setMonth(d.getMonth()+offset);
+  return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+" '"+String(d.getFullYear()).slice(2);
+}
+function setCash(){
+  var v=prompt('Cash you actually have right now (\u00A3):', S.cash||0);
+  var a=parseFloat(v); if(isNaN(a)||a<0)return;
+  S.cash=a; snapshot(); save(); renderAll();
+}
+function renderWorth(){
+  var host=document.getElementById('pg-worth'); if(!host)return;
+  var L=liquid(), A=assetsNow(), liab=liabilitiesNow(), nw=netWorth();
+  var P=worthPath(60), ser=P.series, ms=P.ms;
+  var h='';
+  /* liquid */
+  h+='<div class="sec"><span class="lab">Liquid right now</span></div>';
+  h+='<div class="card"><div class="stat"><span class="n">Cash in hand</span><span class="v" style="cursor:pointer" onclick="setCash()">'+GBP(L.cash)+' \u270e</span></div>'+
+     (L.earmarked>0?'<div class="stat"><span class="n">Set aside (all-or-nothing debts)</span><span class="v ice">'+GBP0(L.earmarked)+'</span></div>':'')+
+     '<div class="stat"><span class="n">Still to cover this month</span><span class="v warm">'+GBP0(L.committed)+'</span></div>'+
+     '<div class="stat"><span class="n"><b>Free to use</b></span><span class="v '+(L.free>=0?'cool':'hot')+'">'+GBP(L.free)+'</span></div>'+
+     '<div class="tiny">'+(L.free<0
+       ? 'You are '+GBP0(-L.free)+' short of this month\'s commitments \u2014 the coming paydays cover it, but nothing is spare until they land.'
+       : 'That is genuinely spare after everything this month already owes.')+'</div></div>';
+  /* net worth */
+  h+='<div class="sec"><span class="lab">Net worth</span></div>';
+  h+='<div class="card'+(nw>=0?' glow':'')+'"><div class="stat"><span class="n">Everything owned + owed to you</span><span class="v cool">'+GBP0(A.total)+'</span></div>'+
+     '<div class="stat"><span class="n">Everything owed out</span><span class="v hot">'+GBP0(liab)+'</span></div>'+
+     '<div class="stat"><span class="n"><b>Net position</b></span><span class="v '+(nw>=0?'cool':'hot')+'" style="font-size:21px">'+GBP0(nw)+'</span></div></div>';
+  h+='<div class="card"><div class="stat"><span class="n">Cash</span><span class="v" style="font-size:14px">'+GBP0(A.cash)+'</span></div>'+
+     '<div class="stat"><span class="n">Pots</span><span class="v" style="font-size:14px">'+GBP0(A.pots)+'</span></div>'+
+     '<div class="stat"><span class="n">Earrings</span><span class="v" style="font-size:14px">'+(A.earrings?GBP0(A.earrings):'held by the pawn')+'</span></div>'+
+     '<div class="stat"><span class="n">Owed by the business</span><span class="v ice" style="font-size:14px">'+GBP0(A.dloan)+'</span></div></div>';
+  /* measured rate */
+  var oR=obsRate(), pR=planRate(), oI=obsIncome(), iT=incomeTrend(), conf=rateConfidence();
+  var nIM=incomeMonths().length;
+  h+='<div class="sec"><span class="lab">Rate of progress</span></div><div class="card">';
+  h+='<div class="stat"><span class="n">Income \u00b7 plan assumes</span><span class="v" style="font-size:15px">'+GBP0(S.settings.income)+'/mo</span></div>';
+  if(oI===null){
+    h+='<div class="stat"><span class="n">Income \u00b7 measured</span><span class="v" style="font-size:14px">no full month logged yet</span></div>';
+  } else {
+    var dv=oI-S.settings.income;
+    h+='<div class="stat"><span class="n">Income \u00b7 measured</span><span class="v '+(dv>=0?'cool':'hot')+'" style="font-size:15px">'+
+       GBP0(oI)+'/mo</span></div>';
+    if(iT!==null){
+      var wrd=Math.abs(iT)<10?'holding steady':(iT>0?'rising':'falling');
+      h+='<div class="stat"><span class="n">Income \u00b7 trend</span><span class="v '+(iT>10?'cool':iT<-10?'hot':'')+'" style="font-size:14px">'+
+         wrd+(Math.abs(iT)>=10?' \u00b7 '+(iT>0?'+':'\u2212')+GBP0(Math.abs(iT))+'/mo each month':'')+'</span></div>';
+    } else {
+      h+='<div class="stat"><span class="n">Income \u00b7 trend</span><span class="v" style="font-size:14px">'+nIM+' of 3 months needed</span></div>';
+    }
+  }
+  h+='<div class="stat"><span class="n">Net worth \u00b7 plan rate</span><span class="v" style="font-size:14px">'+GBP0(pR)+'/mo</span></div>';
+  if(oR!==null){
+    var vs=oR-pR;
+    h+='<div class="stat"><span class="n">Net worth \u00b7 measured</span><span class="v '+(vs>=0?'cool':'hot')+'" style="font-size:15px">'+
+       GBP0(oR)+'/mo \u00b7 '+(vs>=0?GBP0(vs)+' ahead':GBP0(-vs)+' behind')+'</span></div>';
+  }
+  h+='<div class="tiny">'+conf.txt+'.</div></div>';
+  /* mode */
+  h+='<div class="opts" style="grid-template-columns:repeat(3,1fr)">'+
+     [['plan','Plan'],['obs','Measured'],['trend','Trend']].map(function(m){
+       var dis=(m[0]!=='plan'&&oI===null)||(m[0]==='trend'&&iT===null);
+       return '<button onclick="setWMode(\''+m[0]+'\')" class="'+((S.wmode||'plan')===m[0]?'on':'')+'"'+
+              (dis?' style="opacity:.35"':'')+'>'+m[1]+'</button>';
+     }).join('')+'</div>';
+  var md=S.wmode||'plan';
+  var noteTxt;
+  if(md==='plan') noteTxt='Projecting on '+GBP0(S.settings.income)+'/mo as budgeted \u2014 ignores what your months have actually paid.';
+  else if(md==='obs') noteTxt='Projecting on your measured income of '+(oI!==null?GBP0(oI):GBP0(S.settings.income))+'/mo, held flat. No growth assumed.';
+  else {
+    var i12=incomeAt(12,'trend'), i60=incomeAt(60,'trend');
+    noteTxt='Carrying your measured income trend forward in a straight line \u2014 no compounding. '+
+      'That implies <b>'+GBP0(i12)+'/mo by next year</b> and <b>'+GBP0(i60)+'/mo in five</b>. '+
+      'If that looks fair given how performance fees are landing, the projection is fair. If it does not, it is not.';
+  }
+  h+='<div class="tiny" style="margin-top:6px">'+noteTxt+'</div>';
+  /* chart */
+  h+='<div class="sec"><span class="lab">The line</span></div>';
+  h+=worthChart(ser,ms);
+  /* projected figures */
+  h+='<div class="sec"><span class="lab">Projected position</span></div>';
+  h+='<div class="card" style="padding:12px 10px">';
+  h+='<table class="pj"><tr class="hd"><td>When</td><td>Net worth</td><td>Debt</td><td>Saved</td></tr>';
+  [[6,'6 months'],[12,'1 year'],[24,'2 years'],[36,'3 years'],[60,'5 years']].forEach(function(p){
+    var s=ser[p[0]-1]; if(!s)return;
+    h+='<tr><td>'+p[1]+'</td><td class="'+(s.nw>=0?'pos':'neg')+'">'+GBP0(s.nw)+'</td>'+
+       '<td class="'+(s.debt>0?'neg':'pos')+'">'+GBP0(s.debt)+'</td><td>'+GBP0(s.savings)+'</td></tr>';
+  });
+  h+='</table>';
+  if((S.wmode||'plan')==='trend'){
+    h+='<div class="tiny" style="margin-top:8px">Income assumed along the way: '+GBP0(incomeAt(6,'trend'))+
+       '/mo at 6 months, '+GBP0(incomeAt(24,'trend'))+'/mo at 2 years, '+GBP0(incomeAt(60,'trend'))+'/mo at 5.</div>';
+  }
+  var _pr=payRate();
+  h+='<div class="tiny" style="margin-top:8px">Built on <b>'+GBP0(_pr.v)+'/mo</b> going at debt \u2014 '+
+     (_pr.src==='measured'?'your measured rate from the log':'the planned rate, until a full month is logged')+
+     '. Change what you clear and every figure here moves.</div>';
+  h+='<div class="tiny" style="margin-top:6px"><b>Saved</b> is the settlement pot plus savings after every debt is gone. '+
+     'It excludes the '+GBP0(S.ps5Target)+' console \u2014 that money leaves and becomes a thing, not wealth.</div>';
+  h+='</div>';
+  /* assumptions, stated and adjustable */
+  h+='<div class="sec"><span class="lab">Assumptions</span></div><div class="card">';
+  h+='<div class="stat"><span class="n">Savings growth once debt-free</span><span class="v '+((S.savGrowth||0)>0?'cool':'')+'" style="font-size:15px">'+
+     (S.savGrowth||0).toFixed(1)+'%/yr</span></div>';
+  h+='<div class="opts">'+[0,2,3,5].map(function(g){
+       return '<button onclick="setSavGrowth('+g+')" class="'+((S.savGrowth||0)===g?'on':'')+'">'+(g?g+'%':'None')+'</button>';
+     }).join('')+'</div>';
+  h+='<div class="tiny" style="margin:6px 0 12px">Set it to <b>None</b> to see contributions only, with nothing assumed about returns. '+
+     'Anything above that is a return this app cannot promise you.</div>';
+  h+='<div class="stat"><span class="n">Default settlement at</span><span class="v" style="font-size:15px">'+Math.round(S.settleRate*100)+'% of face</span></div>';
+  h+='<div class="opts">'+[0.4,0.5,0.7,1].map(function(s){
+       return '<button onclick="setSettleRate('+s+')" class="'+(Math.abs((S.settleRate||0.5)-s)<0.001?'on':'')+'">'+Math.round(s*100)+'%</button>';
+     }).join('')+'</div>';
+  var froz=S.debts.filter(function(d){return d.frozen&&d.bal>0.005;}).reduce(function(a,b){return a+b.bal;},0);
+  h+='<div class="tiny" style="margin-top:6px">'+GBP0(froz)+' of defaulted debt would cost <b>'+GBP0(froz*S.settleRate)+
+     '</b> to settle at that rate. Both defaulted this year, so a low rate is optimistic \u2014 young books rarely discount hard.</div>';
+  h+='</div>';
+  /* cross-mode comparison */
+  var modes=[['plan','Plan'],['obs','Measured'],['trend','Trend']].filter(function(m){
+    if(m[0]==='obs') return oI!==null;
+    if(m[0]==='trend') return iT!==null;
+    return true;
+  });
+  if(modes.length>1){
+    h+='<div class="card" style="padding:12px 10px"><table class="pj">'+
+       '<tr class="hd"><td>Basis</td><td>1 year</td><td>3 years</td><td>5 years</td></tr>';
+    modes.forEach(function(m){
+      var p=worthPath(60,m[0]).series;
+      h+='<tr'+((S.wmode||'plan')===m[0]?' class="sel"':'')+'><td>'+m[1]+'</td>'+
+         '<td class="'+(p[11].nw>=0?'pos':'neg')+'">'+GBP0(p[11].nw)+'</td>'+
+         '<td class="'+(p[35].nw>=0?'pos':'neg')+'">'+GBP0(p[35].nw)+'</td>'+
+         '<td class="'+(p[59].nw>=0?'pos':'neg')+'">'+GBP0(p[59].nw)+'</td></tr>';
+    });
+    h+='</table><div class="tiny" style="margin-top:8px">The spread between these is the honest uncertainty. '+
+       'Plan ignores your results; Trend assumes they continue.</div></div>';
+  }
+  /* milestones */
+  h+='<div class="sec"><span class="lab">Milestones ahead</span></div><div class="card">';
+  var cdm=project().months;
+  h+='<div class="stat"><span class="n">Live debt gone</span><span class="v cool" style="font-size:14px">'+
+     monthName(cdm)+' \u00b7 '+cdm+'mo</span></div>';
+  if(ms.debtfree) h+='<div class="stat"><span class="n">Every debt gone (settled)</span><span class="v cool" style="font-size:14px">'+
+     monthName(ms.debtfree)+' \u00b7 '+ms.debtfree+'mo</span></div>';
+  if(ms.ps5) h+='<div class="stat"><span class="n">PS5 Pro bought outright</span><span class="v ice" style="font-size:14px">'+
+     monthName(ms.ps5)+' \u00b7 '+ms.ps5+'mo</span></div>';
+  [['Net worth reaches zero','zero'],['First \u00A31,000','k1'],['\u00A35,000','k5'],['\u00A310,000','k10']].forEach(function(r){
+    var v=ms[r[1]];
+    h+='<div class="stat"><span class="n">'+r[0]+'</span><span class="v '+(v?'cool':'')+'" style="font-size:14px">'+
+       (v?monthName(v)+' \u00b7 '+v+'mo':'beyond 5 years at this rate')+'</span></div>';
+  });
+  h+='</div>';
+  h+='<div class="callout"><b>Why the line bends.</b> Right now every pound you pay lifts your net worth by exactly a pound \u2014 '+
+     'no more. Once the debt is gone, the same money becomes savings instead of repayment, and it starts earning on top of itself. '+
+     'Same effort, steeper curve. That bend is the whole point of getting out first.</div>';
+  host.innerHTML=h;
+}
+
+function worthChart(ser,ms){
+  var hist=snapKeys(), W=320, H=160, pad=8;
+  var alt=[];
+  ['plan','obs','trend'].forEach(function(m){
+    if(m!=='plan'&&obsRate()===null) return;
+    if(m==='trend'&&rateTrend()===null) return;
+    alt.push(worthPath(ser.length,m).series);
+  });
+  var all=hist.map(function(k){return S.snaps[k];}).concat([0]);
+  alt.forEach(function(a){ a.forEach(function(s){ all.push(s.nw); }); });
+  var lo=Math.min.apply(null,all), hi=Math.max.apply(null,all);
+  if(hi===lo) hi=lo+1;
+  var nH=hist.length, nAll=nH+ser.length;
+  function X(i){ return pad+(i/Math.max(1,nAll-1))*(W-pad*2); }
+  function Y(v){ return H-pad-((v-lo)/(hi-lo))*(H-pad*2); }
+  var s='<div class="card" style="padding:12px 10px">';
+  s+='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block">';
+  // band between the most and least optimistic modes
+  if(alt.length>1){
+    var up='', dn='';
+    for(var i=0;i<ser.length;i++){
+      var vals=alt.map(function(a){return a[i].nw;});
+      var mx=Math.max.apply(null,vals), mn=Math.min.apply(null,vals);
+      up+=(i?'L':'M')+X(nH+i).toFixed(1)+','+Y(mx).toFixed(1);
+      dn=('L'+X(nH+i).toFixed(1)+','+Y(mn).toFixed(1))+dn;
+    }
+    s+='<path d="'+up+dn+'Z" fill="#00D9A5" opacity=".13"/>';
+  }
+  var zeroY=Y(0);
+  s+='<line x1="'+pad+'" x2="'+(W-pad)+'" y1="'+zeroY.toFixed(1)+'" y2="'+zeroY.toFixed(1)+'" stroke="#4CC9F0" stroke-width="1" stroke-dasharray="3 3" opacity=".55"/>';
+  s+='<text x="'+(W-pad)+'" y="'+(zeroY-5).toFixed(1)+'" fill="#4CC9F0" font-size="9" text-anchor="end" opacity=".85">break-even</text>';
+  var hp='';
+  hist.forEach(function(k,i){ hp+=(i?'L':'M')+X(i).toFixed(1)+','+Y(S.snaps[k]).toFixed(1); });
+  var pp='';
+  ser.forEach(function(sp,i){
+    var x=X(nH+i).toFixed(1), y=Y(sp.nw).toFixed(1);
+    if(i===0) pp='M'+(nH?X(nH-1).toFixed(1)+','+Y(S.snaps[hist[nH-1]]).toFixed(1)+'L':'')+x+','+y;
+    else pp+='L'+x+','+y;
+  });
+  if(hp) s+='<path d="'+hp+'" fill="none" stroke="#EAF6FA" stroke-width="2.6" stroke-linejoin="round"/>';
+  s+='<path d="'+pp+'" fill="none" stroke="#00D9A5" stroke-width="2.4" stroke-dasharray="5 4" stroke-linejoin="round"/>';
+  if(ms.zero) s+='<circle cx="'+X(nH+ms.zero-1).toFixed(1)+'" cy="'+zeroY.toFixed(1)+'" r="4.5" fill="#00D9A5"/>';
+  hist.forEach(function(k,i){ s+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(S.snaps[k]).toFixed(1)+'" r="2.6" fill="#EAF6FA"/>'; });
+  s+='</svg>';
+  s+='<div class="speckey" style="margin-top:8px"><div class="k"><i style="background:#EAF6FA"></i>recorded</div>'+
+     '<div class="k"><i style="background:#00D9A5"></i>projected</div>'+
+     (alt.length>1?'<div class="k"><i style="background:rgba(0,217,165,.35)"></i>range across modes</div>':'')+'</div>';
+  s+='<div class="tiny">Now '+GBP0(netWorth())+' \u2192 '+GBP0(ser[11].nw)+' in a year \u2192 '+GBP0(ser[59].nw)+' in five.</div>';
+  s+='</div>';
+  return s;
+}
+
+/* ── ALERTS ────────────────────────────────────────────────────
+   A page cannot wake itself up. Web push on iOS needs a service worker and a
+   push server, which a single offline file cannot have. Calendar events can do
+   the same job natively: this writes a .ics you import once, and the phone
+   handles every alert from then on. */
+function icsDate(d){ return iso(d).replace(/-/g,''); }
+function icsStamp(){ return new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z'; }
+function vevent(o){
+  var s='BEGIN:VEVENT\r\n';
+  s+='UID:'+o.uid+'@ledger\r\n';
+  s+='DTSTAMP:'+icsStamp()+'\r\n';
+  s+='DTSTART;VALUE=DATE:'+o.start+'\r\n';
+  if(o.rrule) s+='RRULE:'+o.rrule+'\r\n';
+  s+='SUMMARY:'+o.title+'\r\n';
+  if(o.desc) s+='DESCRIPTION:'+o.desc+'\r\n';
+  s+='BEGIN:VALARM\r\nTRIGGER:'+(o.trigger||'-PT9H')+'\r\nACTION:DISPLAY\r\nDESCRIPTION:'+o.title+'\r\nEND:VALARM\r\n';
+  s+='END:VEVENT\r\n';
+  return s;
+}
+function buildICS(){
+  var out='BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Ledger//EN\r\nCALSCALE:GREGORIAN\r\n';
+  var n=Date.now();
+  var lump=nextLump();
+  out+=vevent({uid:'lump'+n,start:icsDate(lump),rrule:'FREQ=DAILY;INTERVAL='+S.settings.cycle,
+    title:'Ledger \u2014 lump lands, run the split',
+    desc:'Open Ledger, tap 4-week lump, enter what actually landed and apply the split.'});
+  var n2=today(), dow=n2.getDay();
+  var mon=addDays(n2,((1-dow)+7)%7), thu=addDays(n2,((4-dow)+7)%7);
+  out+=vevent({uid:'mon'+n,start:icsDate(mon),rrule:'FREQ=WEEKLY;BYDAY=MO',
+    title:'Ledger \u2014 Monday draw',desc:'Log the actual amount received.'});
+  out+=vevent({uid:'thu'+n,start:icsDate(thu),rrule:'FREQ=WEEKLY;BYDAY=TH',
+    title:'Ledger \u2014 Thursday draw',desc:'Log the actual amount. All of it goes at the debt.'});
+  var sun=addDays(n2,((0-dow)+7)%7);
+  out+=vevent({uid:'week'+n,start:icsDate(sun),rrule:'FREQ=WEEKLY;BYDAY=SU',trigger:'-PT6H',
+    title:'Ledger \u2014 place the week\u2019s two dry days',
+    desc:'Set both dry days, and check the week\u2019s food and travel cash.'});
+  if(S.settings.lastRetwist||true){
+    out+=vevent({uid:'rt'+n,start:icsDate(retwistDueDate()),rrule:'FREQ=WEEKLY;INTERVAL='+S.settings.retwistWeeks,
+      title:'Ledger \u2014 retwist due',desc:'Mark it done in Ledger so it drops out of the next split.'});
+  }
+  var eq=earringEquity();
+  if(eq&&eq.monthsLeft>0){
+    var dl=addDays(today(),eq.monthsLeft*30);
+    out+=vevent({uid:'ear'+n,start:icsDate(dl),trigger:'-P7D',
+      title:'Ledger \u2014 earrings equity runs out',
+      desc:'The pawn balance reaches what the earrings are worth around now. Redeem before this or the money is gone.'});
+  }
+  var m1=new Date(); m1.setMonth(m1.getMonth()+1); m1.setDate(1);
+  out+=vevent({uid:'rev'+n,start:icsDate(m1),rrule:'FREQ=MONTHLY;BYMONTHDAY=1',trigger:'-PT4H',
+    title:'Ledger \u2014 monthly position check',
+    desc:'Update your cash, check net worth and the drift ledger, tick off the new month\u2019s bills.'});
+  out+='END:VCALENDAR\r\n';
+  return out;
+}
+function downloadICS(){
+  var blob=new Blob([buildICS()],{type:'text/calendar;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url; a.download='ledger-alerts.ics';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); },300);
+}
+
+
+
+
+/* ── TRANSACTIONS ──────────────────────────────────────────────
+   Money in and money out are separate records. Income landing does not mean it
+   went where the plan said — the split is advice, and nothing moves against a
+   debt until you record that you actually paid it. Every entry is editable,
+   because the record has to match what really happened, not what was intended. */
+
+/* Anything logged before the transaction list existed still needs to be visible and
+   deletable. Pull it in once, WITHOUT re-applying it — the balances and cash already
+   reflect those entries. Your starting figures stay exactly as given; transactions
+   are the record of what happens from here. */
+function migrateTx(){
+  if(S.txMig2) return;
+  var add=[], n=0;
+  function push(o){ o.id='m'+(++n)+Date.now(); add.push(o); }
+  // Only pull the old arrays in if nothing has been migrated before. If an earlier
+  // migration already ran, anything still sitting in them is a stale duplicate of
+  // something since deleted — it must not come back.
+  if(!S.txMigrated){
+    (S.income||[]).forEach(function(e){ if(e&&e.amt) push({date:e.date,dir:'in',kind:e.kind,amt:e.amt}); });
+    (S.payments||[]).forEach(function(e){ if(e&&e.amt) push({date:e.date,dir:'out',debt:e.debt,amt:e.amt}); });
+    (S.spend||[]).forEach(function(e){ if(e&&e.amt) push({date:e.date,dir:'out',cat:e.cat,amt:e.amt}); });
+  }
+  S.tx=(S.tx||[]).concat(add);
+  S.tx.sort(function(a,b){ return a.date<b.date?1:(a.date>b.date?-1:0); });
+  S.income=[]; S.payments=[]; S.spend=[]; S.drift={};   // derived from S.tx from here on
+  S.txMigrated=true; S.txMig2=true; save();
+}
+
+function txAdd(o){
+  o.id='t'+Date.now()+Math.floor(Math.random()*999);
+  o.date=o.date||iso(today());
+  S.tx.unshift(o);
+  applyTx(o,1);
+  snapshot(); save();
+  try{ renderAll(); }catch(e){}
+}
+function applyTx(o,sign){
+  if(o.dir==='in'){ S.cash=(S.cash||0)+sign*o.amt; }
+  else {
+    var d=o.debt? S.debts.filter(function(x){return x.id===o.debt;})[0] : null;
+    if(d&&d.lumpOnly){
+      // Setting money aside moves nothing — it is still your cash, just spoken for.
+      S.earmark[d.id]=Math.max(0,(S.earmark[d.id]||0)+sign*o.amt);
+    } else {
+      S.cash=(S.cash||0)-sign*o.amt;
+      if(d){
+        d.bal=Math.max(0,d.bal-sign*o.amt);
+        if(d.bal<=0.005){ if(!d.clearedOn) d.clearedOn=o.date||iso(today()); }
+        else if(d.clearedOn) delete d.clearedOn;      // an edit reopened it
+      }
+    }
+  }
+}
+function txEdit(id){
+  var t=S.tx.filter(function(x){return x.id===id;})[0]; if(!t) return;
+  var v=prompt('Amount for "'+txLabel(t)+'".\nLeave blank and press OK to delete it.', t.amt);
+  if(v===null) return;
+  applyTx(t,-1);                                  // reverse the old effect
+  if(v.trim()===''){ S.tx=S.tx.filter(function(x){return x.id!==id;}); }
+  else {
+    var a=parseFloat(v);
+    if(isNaN(a)||a<0){ applyTx(t,1); return; }
+    var dv=prompt('Date (YYYY-MM-DD)', t.date);
+    if(dv&&/^\d{4}-\d{2}-\d{2}$/.test(dv.trim())) t.date=dv.trim();
+    t.amt=a; applyTx(t,1);
+    S.tx.sort(function(x,y){ return x.date<y.date?1:(x.date>y.date?-1:0); });
+  }
+  snapshot(); save(); renderAll();
+}
+function txLabel(t){
+  if(t.dir==='in'){
+    return {mon:'Monday draw',thu:'Thursday draw',lump:'4-week lump',perf:'Performance fee',
+            extra:'Overtime / windfall',other:'Other income',repay:'Loan repaid to you'}[t.kind]||'Income';
+  }
+  if(t.debt){
+    var d=S.debts.filter(function(x){return x.id===t.debt;})[0];
+    return (d?d.nm:'Debt')+(d&&d.lumpOnly?' \u2014 set aside':' \u2014 paid');
+  }
+  return t.cat||'Spend';
+}
+/* Lump-only debts: a part payment does not reduce anything in reality, the money
+   just sits with you until it covers the whole thing. Track it as set aside. */
+function earmarkOf(id){ return S.earmark[id]||0; }
+function canRedeem(d){ return d.lumpOnly && earmarkOf(d.id)>=d.bal-0.005 && d.bal>0.005; }
+function redeem(id){
+  var d=S.debts.filter(function(x){return x.id===id;})[0]; if(!d||!canRedeem(d)) return;
+  if(!confirm('Pay '+GBP0(d.bal)+' now and clear '+d.nm+'?')) return;
+  var paid=d.bal;
+  S.earmark[id]=Math.max(0,earmarkOf(id)-paid);
+  S.cash=(S.cash||0)-paid;
+  S.tx.unshift({id:'t'+Date.now(),date:iso(today()),dir:'out',debt:id,amt:paid,note:'redeemed',redeem:true});
+  d.bal=0; d.clearedOn=iso(today()); snapshot(); save(); renderAll();
+}
+function earmarkTotal(){ var t=0; for(var k in S.earmark) t+=S.earmark[k]; return t; }
+function setTxF(f){ S.txF=f; save(); renderTx(); }
+function renderTx(){
+  var host=document.getElementById('txlist'); if(!host) return;
+  var f=S.txF||'all';
+  var all=(S.tx||[]).filter(function(t){
+    if(f==='in') return t.dir==='in';
+    if(f==='debt') return t.dir==='out'&&t.debt;
+    if(f==='spend') return t.dir==='out'&&!t.debt;
+    return true;
+  });
+  var tabs=[['all','All'],['in','Money in'],['debt','Debt paid'],['spend','Spending']];
+  var h='<div class="opts" style="grid-template-columns:repeat(4,1fr);margin:0 0 10px">'+
+    tabs.map(function(t){ return '<button onclick="setTxF(\''+t[0]+'\')" class="'+(f===t[0]?'on':'')+'" style="font-size:11px">'+t[1]+'</button>'; }).join('')+'</div>';
+  if(!all.length){
+    h+='<div class="tiny">Nothing here yet. Income, debt payments and spending all land in this list as you record them.</div>';
+    host.innerHTML=h; return;
+  }
+  var tot=all.reduce(function(a,t){ return a+(t.dir==='in'?t.amt:-t.amt); },0);
+  var list=all.slice(0, S.txAll?9999:25), lastMonth='';
+  list.forEach(function(t){
+    var mk=t.date.slice(0,7);
+    if(mk!==lastMonth){
+      lastMonth=mk;
+      var nm=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+mk.slice(5)-1]+" '"+mk.slice(2,4);
+      h+='<div class="lab" style="margin:12px 0 4px">'+nm+'</div>';
+    }
+    var amt=(t.dir==='in'?'+':'\u2212')+GBP(t.amt);
+    var cls=t.dir==='in'?'cool':(t.debt?'ice':'hot');
+    h+='<div class="stat" style="cursor:pointer" onclick="txEdit(\''+t.id+'\')">'+
+       '<span class="n">'+txLabel(t)+'<br><span style="font-size:11px;color:var(--faint)">'+t.date+'</span></span>'+
+       '<span class="v '+cls+'" style="font-size:15px">'+amt+'</span></div>';
+  });
+  h+='<div class="stat"><span class="n"><b>'+(f==='all'?'Net movement':'Total shown')+'</b></span>'+
+     '<span class="v '+(tot>=0?'cool':'')+'">'+(f==='all'?(tot>=0?'+':'\u2212')+GBP(Math.abs(tot)):GBP(Math.abs(tot)))+'</span></div>';
+  h+='<div class="tiny">Tap any line to correct or delete it. Cash and balances follow the record.</div>';
+  if(all.length>25) h+='<button class="btn ghost sm" onclick="S.txAll=!S.txAll;save();renderTx()">'+
+     (S.txAll?'Show fewer':'Show all '+all.length)+'</button>';
+  host.innerHTML=h;
+}
+function renderCleared(){
+  var host=document.getElementById('clearedlist'); if(!host) return;
+  var done=S.debts.filter(function(d){return d.bal<=0.005;})
+    .sort(function(a,b){ return (a.clearedOn||'')<(b.clearedOn||'')?1:-1; });
+  if(!done.length){ host.innerHTML='<div class="tiny">Nothing cleared yet. The first one goes here.</div>'; return; }
+  var h='';
+  done.forEach(function(d){
+    h+='<div class="stat"><span class="n">'+d.nm+'</span><span class="v cool" style="font-size:14px">'+
+       (d.clearedOn?'cleared '+d.clearedOn:'cleared')+'</span></div>';
+  });
+  var wiped=done.reduce(function(a,d){return a+(S.origs[d.id]||0);},0);
+  h+='<div class="stat"><span class="n"><b>Debt wiped out</b></span><span class="v cool">'+GBP0(wiped)+'</span></div>';
+  host.innerHTML=h;
+}
+
+/* ── DATA SAFETY ───────────────────────────────────────────────
+   localStorage is the only copy. Safari will evict it for sites left unused, so
+   ask the browser for persistent storage where that is supported, and never let
+   a backup get old without saying so. */
+function requestPersist(){
+  try{
+    if(navigator.storage&&navigator.storage.persist){
+      navigator.storage.persisted().then(function(has){
+        if(!has) navigator.storage.persist().then(function(ok){ S.persisted=ok; save(); renderBackupState(); });
+        else { S.persisted=true; save(); renderBackupState(); }
+      });
+    }
+  }catch(e){}
+}
+function backupAge(){
+  if(!S.lastBackup) return null;
+  return daysBetween(new Date(S.lastBackup+'T12:00:00'), today());
+}
+function renderBackupState(){
+  var el=document.getElementById('backupstate'); if(!el) return;
+  var age=backupAge();
+  var stale=(age===null||age>14);
+  var msg;
+  if(age===null) msg='<b>No backup taken yet.</b> This browser holds the only copy of everything. Take one now and keep it somewhere you will find it.';
+  else if(age===0) msg='Backed up today. Safe.';
+  else msg='Last backup <b>'+age+' day'+(age===1?'':'s')+' ago</b>'+(stale?' \u2014 take a fresh one.':'.');
+  var p=(S.persisted===true)?'Browser storage is marked persistent, so it will not be cleared automatically.'
+       :'Storage is not marked persistent on this browser \u2014 backups are the only guarantee.';
+  el.className='callout'+(stale?' warm':'');
+  el.innerHTML=msg+' '+p;
+}
+
+/* ── SETUP & BACKUP ────────────────────────────────────────────
+   The file itself carries no personal figures — everything lives in this
+   browser only. That makes it safe to host publicly, and makes a backup the
+   only copy, so exporting one matters. */
+function addDebt(){
+  var nm=prompt('What is it called?'); if(!nm) return;
+  var bal=parseFloat(prompt('Balance owed (\u00A3):','0')); if(isNaN(bal)||bal<0) return;
+  var apr=parseFloat(prompt('APR % (0 if none or if it is frozen):','0')); if(isNaN(apr)) apr=0;
+  var min=parseFloat(prompt('Minimum payment per month (\u00A3, 0 if none):','0')); if(isNaN(min)) min=0;
+  var acc=parseFloat(prompt('Does the balance GROW each month? Enter the amount, or 0:','0')); if(isNaN(acc)) acc=0;
+  var frz=confirm('Is this a defaulted / frozen debt? OK = yes, Cancel = no');
+  var id='d'+Date.now();
+  var order=S.debts.length? Math.max.apply(null,S.debts.map(function(d){return d.order;}))+1 : 1;
+  S.debts.push({id:id,nm:nm,bal:bal,min:min,apr:apr,accrue:acc||undefined,lumpOnly:acc>0||undefined,frozen:frz||undefined,order:order,addedOn:iso(today()),meta:''});
+  S.origs[id]=bal; snapshot(); save(); renderAll();
+}
+function editDebt(id){
+  var d=S.debts.filter(function(x){return x.id===id;})[0]; if(!d) return;
+  var v=prompt('Balance for '+d.nm+' (\u00A3). Leave blank and press OK to delete it.', d.bal);
+  if(v===null) return;
+  if(v.trim()===''){ if(confirm('Delete '+d.nm+'?')){ S.debts=S.debts.filter(function(x){return x.id!==id;}); delete S.origs[id]; } }
+  else {
+    var b=parseFloat(v);
+    if(!isNaN(b)&&b>=0){
+      // Correcting a figure is not progress: shift the baseline by the same amount so
+      // the progress bar and the cleared total stay truthful.
+      var delta=b-d.bal;
+      S.origs[id]=Math.max(0,(S.origs[id]||d.bal)+delta);
+      d.bal=b;
+    }
+  }
+  snapshot(); save(); renderAll();
+}
+function moveDebt(id,dir){
+  var q=S.debts.slice().sort(function(a,b){return a.order-b.order;});
+  var i=q.findIndex(function(d){return d.id===id;});
+  var j=i+dir; if(i<0||j<0||j>=q.length) return;
+  var t=q[i].order; q[i].order=q[j].order; q[j].order=t;
+  save(); renderAll();
+}
+function exportBackup(){
+  S.lastBackup=iso(today()); save();
+  var blob=new Blob([JSON.stringify(S)],{type:'application/json'});
+  var url=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=url; a.download='ledger-backup-'+iso(today())+'.json';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);renderBackupState();},300);
+}
+function copyBackup(){
+  var t=JSON.stringify(S);
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){
+      S.lastBackup=iso(today()); save(); renderBackupState();
+      alert('Backup copied. Paste it into Notes, a message to yourself, anywhere you will still have it in a year.');
+    });
+  } else {
+    var ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta);
+    ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta);
+    S.lastBackup=iso(today()); save(); renderBackupState();
+    alert('Backup copied.');
+  }
+}
+function restoreBackup(){
+  var box=document.getElementById('restore-box');
+  if(!box) return;
+  if(box.style.display==='none'||!box.style.display){ box.style.display='block'; return; }
+  var txt=document.getElementById('restore-txt').value.trim();
+  if(!txt) return;
+  try{
+    var o=JSON.parse(txt);
+    if(!o||!o.debts) throw new Error('not a Ledger backup');
+    localStorage.setItem(LKEY,JSON.stringify(o));
+    location.reload();
+  }catch(e){ alert('That did not parse as a Ledger backup.'); }
+}
+function renderSetup(){
+  var host=document.getElementById('setup'); if(!host) return;
+  if(S.debts.length){ host.style.display='none'; return; }
+  host.style.display='block';
+  host.innerHTML=
+    '<div class="card glow"><div class="stat" style="border:none;padding-bottom:6px">'+
+    '<span class="n" style="font-size:15px;color:var(--txt);font-weight:700">Nothing loaded yet</span></div>'+
+    '<div class="tiny" style="margin-top:0">This copy holds no figures \u2014 they live only in this browser, which is why the file '+
+    'is safe to host anywhere. Paste a backup to pick up where you left off, or start adding debts one at a time.</div>'+
+    '<button class="btn" onclick="restoreBackup()">Paste a backup</button>'+
+    '<button class="btn ghost" onclick="addDebt()">Add a debt manually</button></div>';
+}
+
+/* ── nav ── */
+document.querySelectorAll('nav button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('nav button').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
+    document.getElementById('pg-'+b.getAttribute('data-p')).classList.add('on');
+    window.scrollTo(0,0);
+  });
+});
+['spendcats','paykind','paykind2'].forEach(function(id){
+  document.getElementById(id).addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    if(id!=='spendcats'){ ['paykind','paykind2'].forEach(function(g){
+      document.getElementById(g).querySelectorAll('button').forEach(function(x){x.classList.remove('on');}); }); }
+    else this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    if(id==='paykind'||id==='paykind2'){
+      var k=b.getAttribute('data-k');
+      var exp=expectedFor(k);
+      document.getElementById('pay-amt').value = (exp!==null)?Math.round(exp*100)/100:'';
+      showExpect(k);
+      document.getElementById('prescription').innerHTML='';
+    }
+  });
+});
+if(!S.startDate){ S.startDate=iso(today()); save(); }
+accrueDebts(); migrateTx(); requestPersist();
+function renderAll(){
+  [renderHero,renderToday,renderDebts,renderWeed,renderPlan,renderCommit,renderWorth,renderCycle,renderSetup,renderBackupState,renderTx,renderCleared]
+    .forEach(function(fn){ try{ fn(); }catch(e){ console.warn(fn.name,e); } });
+}
+if(!S.snaps[monthKey()]) snapshot();
+renderAll();
+
+</script>
+</body>
+</html>
